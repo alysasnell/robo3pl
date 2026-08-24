@@ -62,20 +62,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .who{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink-2)}
 .who select{padding:6px 9px;font-size:13px}
 .who input{padding:6px 9px;font-size:13px;max-width:150px}
-.mailpanel{border:1px solid var(--accent);background:var(--accent-soft);border-radius:10px;padding:14px 16px;margin-top:16px}
-.mp-head{display:flex;gap:10px;align-items:flex-start}
-.mp-tick{width:20px;height:20px;flex:none;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:12px;margin-top:1px}
-.mp-head b{font-family:var(--display);font-size:15px}
-.mp-head p{margin:2px 0 0;font-size:13.5px;color:var(--ink-2)}
-.mp-sub{display:flex;gap:9px;align-items:baseline;margin:11px 0 12px;padding:8px 11px;background:var(--surface);border:1px solid var(--line);border-radius:7px;overflow-x:auto}
-.mp-subject{font-family:var(--mono);font-size:12.5px;white-space:nowrap}
-.mp-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.mp-actions .spacer{flex:1}
-.mp-actions a.btn{text-decoration:none}
 .delconfirm{font-size:12.5px;color:var(--crit);font-weight:600}
-.emailed{display:block;font-family:var(--mono);font-size:11px;color:var(--ok);margin-top:3px;white-space:nowrap}
-.sent-yes{color:var(--ok);font-weight:600;font-size:13px}
-.sent-no{color:var(--ink-3);font-size:13px}
 .tabs{display:flex;gap:2px;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:3px}
 .tabs button{font-family:var(--display);font-size:13px;font-weight:600;border:0;background:transparent;color:var(--ink-2);padding:6px 14px;border-radius:6px;cursor:pointer}
 .tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(18,32,30,.10)}
@@ -253,7 +240,6 @@ label.lab span{color:var(--ink-3);text-transform:none;letter-spacing:0;font-fami
   .row .c-due{grid-column:4}
   .row .c-status{grid-column:5;grid-row:3;padding:9px 0 12px;justify-self:start;align-self:start}
   .notecount{display:inline;margin-left:6px}
-  .emailed{display:inline;margin-left:8px}
   .row .c-chev{display:none}
   .detail-grid{grid-template-columns:1fr;gap:16px}
   .form-grid{grid-template-columns:1fr}
@@ -268,7 +254,7 @@ label.lab span{color:var(--ink-3);text-transform:none;letter-spacing:0;font-fami
 </style>
 
 <div id="app"></div>
-<script id="rs-state" type="application/json">{"v":1,"seq":1,"items":[]}</script>
+<script id="rs-state" type="application/json">{"v":1,"seq":2,"items":[{"id":"rmt7mojnj7cc1a","num":1,"client":"Fygg","requester":"Lysa","priority":"critical","status":"new","need":"Fygg Nitric Oxide Mints are getting marked as fulfilled in Robo and Packiyo, but they are on backorder in Packiyo (-515). To our understanding, we do not have these in the warehouse and they are not actually being fulfilled. Customers are reporting they are not receiving these. Can we look into why they are being marked as fulfilled while they are on backorder?  Is it Robo or Packiyo?","ref":"#116163, NOX-LOZ-30","due":"2026-08-25","createdAt":"2026-08-24T19:27:37.855Z","updatedAt":"2026-08-24T19:27:37.855Z","notes":[]}]}</script>
 <script id="rs-js">
 (function(){
 "use strict";
@@ -317,8 +303,6 @@ var LOGO = '<svg class="mark" width="42" height="34" viewBox="0 0 46 36" fill="n
   '<rect x="28" y="17.4" width="7.4" height="4.6" rx="2.3" fill="var(--brand-eye)"/>' +
 '<\/svg>';
 var TEAM = ["Ariel","Coya","Shay","Mylene","Lysa","Mark"];
-var GLEN = "glen@robo3pl.com";
-var BOARD_URL = "https://claude.ai/code/artifact/2542a3a2-ad9f-418d-bfc6-70ece595706e";
 var PRIOS = [
   {k:"critical",n:"Critical",hint:"Shipments stopped or client escalating"},
   {k:"high",n:"High",hint:"Blocking someone's work today"},
@@ -518,121 +502,6 @@ function commit(mutator, okMsg){
   });
 }
 
-/* ---------------- email to Glen ---------------- */
-function emailSubject(it){
-  return "[" + prioName(it.priority).toUpperCase() + "] " + it.client +
-    " — RoboShip request #" + it.num + " (" + it.requester + ")";
-}
-function emailBody(it, full){
-  var need = String(it.need||"");
-  if(!full && need.length > 1200) need = need.slice(0,1200) + "… (full text on the board)";
-  var lines = [
-    "Priority: " + prioName(it.priority),
-    "Client: " + it.client,
-    "Submitted by: " + it.requester
-  ];
-  if(it.ref) lines.push("Order / ref: " + it.ref);
-  if(it.due) lines.push("Needed by: " + fmtDue(it.due));
-  lines.push("Submitted: " + fmtDateTime(it.createdAt));
-  lines.push("");
-  lines.push("What they need:");
-  lines.push(need);
-  lines.push("");
-  lines.push("Open the board: " + BOARD_URL);
-  return lines.join("\n");
-}
-function mailtoHref(it){
-  return "mailto:" + GLEN + "?subject=" + encodeURIComponent(emailSubject(it)) +
-    "&body=" + encodeURIComponent(emailBody(it,false));
-}
-function openMail(it){
-  var a = document.createElement("a");
-  a.href = mailtoHref(it);
-  a.target = "_blank";
-  a.rel = "noopener";
-  a.style.display = "none";
-  document.body.appendChild(a);
-  try{ a.click(); }catch(e){}
-  setTimeout(function(){ if(a.parentNode) a.parentNode.removeChild(a); }, 0);
-}
-function copyMail(it){
-  var text = "To: " + GLEN + "\nSubject: " + emailSubject(it) + "\n\n" + emailBody(it,true);
-  function fallback(){
-    var ta = document.createElement("textarea");
-    ta.value = text;
-    ta.setAttribute("readonly","");
-    ta.style.position = "fixed";
-    ta.style.top = "-1000px";
-    document.body.appendChild(ta);
-    ta.select();
-    var ok = false;
-    try{ ok = document.execCommand("copy"); }catch(e){}
-    document.body.removeChild(ta);
-    if(ok) toast("Email copied — paste it into a message to " + GLEN + ".");
-    else showMailText(it, text);
-  }
-  if(navigator.clipboard && navigator.clipboard.writeText){
-    navigator.clipboard.writeText(text).then(function(){
-      toast("Email copied — paste it into a message to " + GLEN + ".");
-    }, fallback);
-  } else fallback();
-}
-function showMailText(it, text){
-  var host = byId("mail-fallback");
-  if(!host) return;
-  host.innerHTML = '<label class="lab" style="margin-top:12px">Copy this and send it to ' + GLEN + '</label>' +
-    '<textarea class="inp" rows="9" readonly id="mail-text"></textarea>';
-  var ta = byId("mail-text");
-  ta.value = text;
-  ta.focus();
-  ta.select();
-}
-function markEmailed(id){
-  var it = find(id);
-  if(!it || it.emailedAt) { clearPending(); renderAll(); return; }
-  var who = prefs.name || it.requester;
-  clearPending();
-  commit(function(s){
-    var t = findIn(s, id);
-    if(!t) return;
-    t.emailedAt = new Date().toISOString();
-    t.emailedBy = who;
-    t.updatedAt = new Date().toISOString();
-  }, "Marked as emailed to Glen.");
-}
-function pending(){
-  try{
-    var raw = sessionStorage.getItem("rs-pending-mail");
-    if(!raw) return null;
-    var p = JSON.parse(raw);
-    var it = find(p && p.id);
-    return it || null;
-  }catch(e){ return null; }
-}
-function stashPending(id){
-  try{ sessionStorage.setItem("rs-pending-mail", JSON.stringify({id:id})); }catch(e){}
-}
-function clearPending(){
-  try{ sessionStorage.removeItem("rs-pending-mail"); }catch(e){}
-}
-function mailPanelHTML(){
-  var it = pending();
-  if(!it) return "";
-  return '<div class="wrap"><div class="mailpanel">' +
-    '<div class="mp-head"><span class="mp-tick" aria-hidden="true">✓</span>' +
-      '<div><b>Request #' + it.num + ' is on the board.</b>' +
-      '<p>An email to ' + GLEN + ' should have opened in your mail app. Send it, then confirm here so the team can see it went out.</p></div></div>' +
-    '<div class="mp-sub"><span class="eyebrow">Subject</span><span class="mp-subject">' + esc(emailSubject(it)) + '</span></div>' +
-    '<div class="mp-actions">' +
-      '<button class="btn primary sm" data-act="mail-sent" data-id="' + esc(it.id) + '">I sent it</button>' +
-      '<a class="btn sm" href="' + esc(mailtoHref(it)) + '" target="_blank" rel="noopener" data-act="mail-again" data-id="' + esc(it.id) + '">Open the email again</a>' +
-      '<button class="btn sm" data-act="mail-copy" data-id="' + esc(it.id) + '">Copy it instead</button>' +
-      '<span class="spacer"></span>' +
-      '<button class="btn ghost sm" data-act="mail-done">Not yet</button>' +
-    '</div><div id="mail-fallback"></div>' +
-  '</div></div>';
-}
-
 /* ---------------- sorting + filtering ---------------- */
 function cmpFor(key){
   switch(key){
@@ -742,7 +611,7 @@ function header(){
 
 /* ---------------- render: queue ---------------- */
 function queueHTML(){
-  return mailPanelHTML() + statsHTML() + bannerHTML() + controlsHTML() +
+  return statsHTML() + bannerHTML() + controlsHTML() +
     '<div class="board"><div class="scroller">' + headHTML() + listHTML() + '</div></div>';
 }
 function statsHTML(){
@@ -863,7 +732,7 @@ function rowHTML(it){
     '<div class="cell c-due"><span class="due' + (overdue ? " over" : "") + '">' + (it.due ? fmtDue(it.due) + (overdue ? " ⚠" : "") : "—") + '</span></div>' +
     '<div class="cell c-status"><span class="pill s-' + esc(it.status) + '">' + statusName(it.status) + '</span>' +
       (notes ? '<span class="notecount">' + notes + ' note' + (notes===1?"":"s") + '</span>' : "") +
-      (it.emailedAt ? '<span class="emailed" title="Emailed to ' + GLEN + '">✉ Emailed</span>' : "") + '</div>' +
+      '</div>' +
     '<div class="cell c-chev"><svg class="chev" width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">' +
       '<path d="m6 3 5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>' +
   '</div>';
@@ -902,9 +771,6 @@ function detailHTML(it){
           (it.ref ? '<dt>Order / ref</dt><dd class="mono">' + esc(it.ref) + '</dd>' : "") +
           (it.due ? '<dt>Needed by</dt><dd class="mono' + (isOverdue(it) ? " due over" : "") + '">' + fmtDue(it.due) + '</dd>' : "") +
           '<dt>Last update</dt><dd class="mono">' + fmtDateTime(it.updatedAt || it.createdAt) + '</dd>' +
-          '<dt>Email to Glen</dt><dd>' + (it.emailedAt
-            ? '<span class="sent-yes">✉ Sent' + (it.emailedBy ? ' by ' + esc(it.emailedBy) : '') + '</span><br><span class="mono" style="font-size:12px;color:var(--ink-3)">' + fmtDateTime(it.emailedAt) + '</span>'
-            : '<span class="sent-no">Not marked as sent</span>') + '</dd>' +
         '</dl>' +
       '</div>' +
     '</div>' +
@@ -917,8 +783,6 @@ function detailHTML(it){
             PRIOS.map(function(p){ return '<option value="' + p.k + '"' + (it.priority===p.k?" selected":"") + '>' + p.n + '</option>'; }).join("") +
           '</select>' +
           '<span class="spacer"></span>' +
-          '<button class="btn sm" data-act="mail-row" data-id="' + esc(it.id) + '">Email Glen</button>' +
-          (it.emailedAt ? '' : '<button class="btn sm" data-act="mail-mark" data-id="' + esc(it.id) + '">Mark emailed</button>') +
           (isOpen(it)
             ? '<button class="btn sm" data-act="resolve" data-id="' + esc(it.id) + '">Mark resolved</button>'
             : '<button class="btn sm" data-act="reopen" data-id="' + esc(it.id) + '">Reopen</button>') +
@@ -941,7 +805,7 @@ function formHTML(){
   var otherName = !!(who && TEAM.indexOf(who) === -1);
   return '<div class="panel"><header>' +
     '<h2>New request for Glen</h2>' +
-    '<p>Say what you need and how urgent it is. It lands on the board straight away, and opens an email to Glen with the priority in the subject line.</p>' +
+    '<p>Say what you need and how urgent it is. It lands on the board straight away, and Glen sees the worst first.</p>' +
     '</header>' +
     '<form id="rs-form" novalidate>' +
     '<div class="form-grid">' +
@@ -980,7 +844,7 @@ function formHTML(){
         '<input class="inp" id="f-due" type="date" value="' + esc(d.due||"") + '"></div>' +
     '</div>' +
     '<div class="form-foot">' +
-      '<span class="hint">Lands on the board straight away, and opens an email to Glen for you to send.</span>' +
+      '<span class="hint">Everyone with the link sees this the moment you send it.</span>' +
       '<button type="button" class="btn" data-act="cancel-form">Cancel</button>' +
       '<button type="submit" class="btn primary" data-act="submit">Send to the board</button>' +
     '</div>' +
@@ -1043,12 +907,6 @@ function onClick(e){
   if(act === "note-open"){ noteOpen[id] = true; renderAll(); var t = byId("note-"+id); if(t) t.focus(); return; }
   if(act === "note-cancel"){ delete noteOpen[id]; renderAll(); return; }
   if(act === "note-save"){ saveNote(id); return; }
-  if(act === "mail-done"){ clearPending(); renderAll(); return; }
-  if(act === "mail-sent"){ markEmailed(id); return; }
-  if(act === "mail-mark"){ markEmailed(id); return; }
-  if(act === "mail-copy"){ var mi = find(id); if(mi) copyMail(mi); return; }
-  if(act === "mail-again"){ return; }
-  if(act === "mail-row"){ var ri = find(id); if(ri) openMail(ri); return; }
   if(act === "resolve"){ setStatus(id, "done"); return; }
   if(act === "reopen"){ setStatus(id, "active"); return; }
   if(act === "del"){ confirmDel = id; renderAll(); return; }
@@ -1229,8 +1087,6 @@ function submitForm(){
     need: data.need, ref: data.ref, due: data.due,
     createdAt: now, updatedAt: now, notes: []
   };
-  openMail(item);
-  stashPending(item.id);
   commit(function(s){
     item.num = s.seq || 1;
     s.seq = item.num + 1;
@@ -1241,7 +1097,7 @@ function submitForm(){
 function exportCsv(){
   var rows = visibleItems().filter(function(i){ return !i.sample; });
   if(!rows.length){ toast("Nothing to export in this view.","warn"); return; }
-  var head = ["Request #","Priority","Status","Client","Submitted by","What they need","Order/ref","Needed by","Submitted","Days waiting","Emailed Glen","Notes"];
+  var head = ["Request #","Priority","Status","Client","Submitted by","What they need","Order/ref","Needed by","Submitted","Days waiting","Notes"];
   function cell(v){ return '"' + String(v==null?"":v).replace(/"/g,'""') + '"'; }
   var lines = [head.map(cell).join(",")];
   rows.forEach(function(it){
@@ -1249,7 +1105,6 @@ function exportCsv(){
       it.num, prioName(it.priority), statusName(it.status), it.client, it.requester,
       it.need, it.ref, it.due, new Date(it.createdAt).toISOString().slice(0,10),
       isOpen(it) ? days(it.createdAt) : "",
-      it.emailedAt ? new Date(it.emailedAt).toISOString().slice(0,16).replace("T"," ") : "no",
       (it.notes||[]).map(function(n){ return n.by + ": " + n.text; }).join(" | ")
     ].map(cell).join(","));
   });
