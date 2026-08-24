@@ -21,7 +21,7 @@ so nothing lives in scattered DMs. Submissions land in one queue, sorted worst-f
 - Counters up top: open requests, critical waiting, longest wait in days, resolved this week
 - Open a row to read the full request, post a note back, change status or priority,
   mark it resolved, re-send the email, or delete it
-- Export the current view to CSV
+- Copy the current view as CSV to the clipboard
 
 Statuses are **Submitted** (waiting on Glen), **Glen working**, **Needs your reply**
 (he's waiting on the submitter), and **Resolved**.
@@ -82,13 +82,18 @@ can be embedded properly instead.
 `index.html` is the whole thing — one self-contained page, no server and no database.
 It runs as a Claude Artifact using the `artifact` capability: the page stores its data as
 JSON inside itself, and each submission or edit publishes a new version of the page, which
-every open browser reloads to. The `downloads` capability powers the CSV export.
+every open browser reloads to. `artifact` is the only capability it declares — deliberately:
+an artifact that offers file downloads cannot be shared with "anyone with the link", so the
+CSV export copies to the clipboard instead of saving a file. Paste it straight into Excel or
+Sheets.
 
 Everyone who writes to the board needs **edit access** to the artifact. Viewers with
 read-only access see the queue but get a "View only" banner instead of the write controls.
 
 There are no native `alert`/`confirm`/`prompt` dialogs anywhere — sandboxed frames often
 block them — so deletes use a two-step inline confirm and identity is a picker in the header.
+
+Do not add the `downloads` capability back without checking the sharing consequence above.
 
 ### Redeploying
 

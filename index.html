@@ -791,7 +791,7 @@ function controlsHTML(){
     '</div>' +
     '<div class="controls-right">' +
       '<span class="count">' + n + " of " + allItems().length + ' shown</span>' +
-      '<button class="btn sm" data-act="csv">Export CSV</button>' +
+      '<button class="btn sm" data-act="csv">Copy as CSV</button>' +
     '</div>' +
   '</div>' +
   '<div class="controls filters">' +
@@ -1253,20 +1253,28 @@ function exportCsv(){
       (it.notes||[]).map(function(n){ return n.by + ": " + n.text; }).join(" | ")
     ].map(cell).join(","));
   });
-  var csv = "﻿" + lines.join("\r\n");
-  var name = "roboship-requests-" + new Date().toISOString().slice(0,10) + ".csv";
-  if(window.claude && window.claude.use){
-    Promise.resolve(window.claude.use("downloads")).then(function(dl){
-      if(!dl) throw new Error("no downloads");
-      return dl.save({filename:name, data:csv});
-    }).then(function(){
-      toast("CSV saved.");
-    }).catch(function(){
-      toast("Couldn’t save the CSV from this view.","warn");
-    });
-  } else {
-    toast("Downloads aren’t available in this view.","warn");
+  var csv = lines.join("\r\n");
+  var n = rows.length;
+  function done(){
+    toast(n + " request" + (n===1?"":"s") + " copied — paste into Excel or Sheets.");
   }
+  function fallback(){
+    var ta = document.createElement("textarea");
+    ta.value = csv;
+    ta.setAttribute("readonly","");
+    ta.style.position = "fixed";
+    ta.style.top = "-1000px";
+    document.body.appendChild(ta);
+    ta.select();
+    var ok = false;
+    try{ ok = document.execCommand("copy"); }catch(e){}
+    document.body.removeChild(ta);
+    if(ok) done();
+    else toast("Couldn’t copy from this view. Try selecting the rows by hand.","warn");
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(csv).then(done, fallback);
+  } else fallback();
 }
 
 /* ---------------- go ---------------- */
