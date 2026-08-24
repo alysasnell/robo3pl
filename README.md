@@ -32,7 +32,7 @@ critical. A past "needed by" date flags as overdue.
 
 `index.html` holds two lists near the top of the script, edit them there to change the options:
 
-- `TEAM` — Ariel, Coya, Shay, Mylene, Lysa, Mark
+- `TEAM` — Ariel, Coya, Shay, Mylene, Lysa, Mark, Jentsyn
 - `CLIENTS` — the 30 RoboShip clients: Beauty Sleep Club, Bioroot Labs, Botanē, CRWN,
   Clarity MD, Clean Supplement USA, Drop Guys, Earthline Naturals, Envitamin, Erae Paris,
   Fieldy, Fygg, GLP-1 SOS, GumPlus, Honey Mark, Hug Sleep, Hushed Socks, Hydrant, Hyro,
