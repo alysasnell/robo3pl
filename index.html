@@ -2,45 +2,46 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style id="rs-css">
 :root{
-  --ground:#eef1f0; --surface:#ffffff; --surface-2:#f6f8f7; --surface-3:#e7ecea;
-  --line:#d3dad8; --line-2:#c1cbc8;
-  --ink:#12201e; --ink-2:#4a5a57; --ink-3:#7b8a87;
-  --accent:#0e7c7b; --accent-2:#0a625f; --accent-ink:#ffffff; --accent-soft:#dceceb;
-  --crit:#c0372a; --crit-bg:#fae8e5; --crit-line:#eec4bd;
-  --high:#9c5d0e; --high-bg:#f9eeda; --high-line:#ead2a8;
-  --med:#2b6ba4;  --med-bg:#e3edf6;  --med-line:#c2d6e9;
-  --low:#5c706d;  --low-bg:#e8edec;  --low-line:#ced7d5;
-  --ok:#2a7455; --ok-bg:#e1efe8; --ok-line:#bad9cb;
-  --shadow:0 1px 2px rgba(18,32,30,.05),0 8px 22px rgba(18,32,30,.07);
+  --brand:#3d7bfb; --brand-eye:#131c2e;
+  --ground:#edf0f5; --surface:#ffffff; --surface-2:#f5f7fa; --surface-3:#e6eaf1;
+  --line:#d5dbe6; --line-2:#c1cad9;
+  --ink:#141b2b; --ink-2:#4a5570; --ink-3:#79839a;
+  --accent:#2f6bf5; --accent-2:#2455cc; --accent-ink:#ffffff; --accent-soft:#e4ecfe;
+  --crit:#c8372c; --crit-bg:#fae8e6; --crit-line:#eec5c0;
+  --high:#9a5f0d; --high-bg:#f9eeda; --high-line:#e9d2a8;
+  --med:#2f7d6e;  --med-bg:#e2f0ec;  --med-line:#bcdbd3;
+  --low:#77839a;  --low-bg:#edeff4;  --low-line:#d8dde7;
+  --ok:#2c8348; --ok-bg:#e3f1e7; --ok-line:#bedcc7;
+  --shadow:0 1px 2px rgba(20,27,43,.05),0 8px 22px rgba(20,27,43,.08);
   --sans:"IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
   --display:"Archivo",var(--sans);
   --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --ground:#0f1716; --surface:#161f1e; --surface-2:#1c2726; --surface-3:#243130;
-    --line:#2b3937; --line-2:#3b4a47;
-    --ink:#e7efed; --ink-2:#a6b5b2; --ink-3:#7c8b88;
-    --accent:#27b3ad; --accent-2:#3fc9c2; --accent-ink:#06201f; --accent-soft:#153230;
-    --crit:#ff7361; --crit-bg:#3a1c18; --crit-line:#5c2c25;
-    --high:#e8a53d; --high-bg:#382a12; --high-line:#57411d;
-    --med:#74b4e8;  --med-bg:#152a3c;  --med-line:#24425c;
-    --low:#9fb2ae;  --low-bg:#212c2b;  --low-line:#33403e;
-    --ok:#54c391; --ok-bg:#142c22; --ok-line:#234438;
-    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px rgba(0,0,0,.32);
+    --ground:#141b2b; --surface:#1b2436; --surface-2:#212b40; --surface-3:#2a3448;
+    --line:#303b52; --line-2:#3f4b66;
+    --ink:#e8ecf5; --ink-2:#a4aec6; --ink-3:#7a849c;
+    --accent:#5b8dff; --accent-2:#7aa3ff; --accent-ink:#0d1425; --accent-soft:#1c2b4d;
+    --crit:#ff7a68; --crit-bg:#3a1e1b; --crit-line:#5c2f28;
+    --high:#eaa63f; --high-bg:#382b14; --high-line:#57431f;
+    --med:#4fc0aa;  --med-bg:#143029;  --med-line:#22493f;
+    --low:#98a3ba;  --low-bg:#232c3e;  --low-line:#333e55;
+    --ok:#5cc87a; --ok-bg:#16301f; --ok-line:#274a33;
+    --shadow:0 1px 2px rgba(0,0,0,.32),0 8px 22px rgba(0,0,0,.34);
   }
 }
 :root[data-theme="dark"]{
-  --ground:#0f1716; --surface:#161f1e; --surface-2:#1c2726; --surface-3:#243130;
-  --line:#2b3937; --line-2:#3b4a47;
-  --ink:#e7efed; --ink-2:#a6b5b2; --ink-3:#7c8b88;
-  --accent:#27b3ad; --accent-2:#3fc9c2; --accent-ink:#06201f; --accent-soft:#153230;
-  --crit:#ff7361; --crit-bg:#3a1c18; --crit-line:#5c2c25;
-  --high:#e8a53d; --high-bg:#382a12; --high-line:#57411d;
-  --med:#74b4e8;  --med-bg:#152a3c;  --med-line:#24425c;
-  --low:#9fb2ae;  --low-bg:#212c2b;  --low-line:#33403e;
-  --ok:#54c391; --ok-bg:#142c22; --ok-line:#234438;
-  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px rgba(0,0,0,.32);
+  --ground:#141b2b; --surface:#1b2436; --surface-2:#212b40; --surface-3:#2a3448;
+  --line:#303b52; --line-2:#3f4b66;
+  --ink:#e8ecf5; --ink-2:#a4aec6; --ink-3:#7a849c;
+  --accent:#5b8dff; --accent-2:#7aa3ff; --accent-ink:#0d1425; --accent-soft:#1c2b4d;
+  --crit:#ff7a68; --crit-bg:#3a1e1b; --crit-line:#5c2f28;
+  --high:#eaa63f; --high-bg:#382b14; --high-line:#57431f;
+  --med:#4fc0aa;  --med-bg:#143029;  --med-line:#22493f;
+  --low:#98a3ba;  --low-bg:#232c3e;  --low-line:#333e55;
+  --ok:#5cc87a; --ok-bg:#16301f; --ok-line:#274a33;
+  --shadow:0 1px 2px rgba(0,0,0,.32),0 8px 22px rgba(0,0,0,.34);
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
@@ -54,12 +55,27 @@ button,input,select,textarea{font:inherit;color:inherit}
 /* ---------- header ---------- */
 .top{position:sticky;top:0;z-index:30;background:var(--surface);border-bottom:1px solid var(--line)}
 .top-in{display:flex;align-items:center;gap:14px;padding:13px 0;flex-wrap:wrap}
-.mark{width:34px;height:34px;flex:none;border-radius:7px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.02em}
-.brand h1{font-size:var(--fs-display,20px);font-size:clamp(18px,2.2vw,21px);font-weight:700;line-height:1.15}
-.brand p{margin:1px 0 0;font-size:12.5px;color:var(--ink-3)}
+.mark{flex:none;color:var(--brand);display:block}
+.wordmark{display:block;font-family:var(--display);font-size:12.5px;font-weight:700;letter-spacing:.01em;color:var(--brand);line-height:1;margin-bottom:2px}
+.brand h1{font-size:clamp(17px,2.2vw,20px);font-weight:700;line-height:1.15}
 .top-right{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.who{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:4px 6px 4px 11px}
-.who b{font-weight:600;color:var(--ink)}
+.who{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink-2)}
+.who select{padding:6px 9px;font-size:13px}
+.who input{padding:6px 9px;font-size:13px;max-width:150px}
+.mailpanel{border:1px solid var(--accent);background:var(--accent-soft);border-radius:10px;padding:14px 16px;margin-top:16px}
+.mp-head{display:flex;gap:10px;align-items:flex-start}
+.mp-tick{width:20px;height:20px;flex:none;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:12px;margin-top:1px}
+.mp-head b{font-family:var(--display);font-size:15px}
+.mp-head p{margin:2px 0 0;font-size:13.5px;color:var(--ink-2)}
+.mp-sub{display:flex;gap:9px;align-items:baseline;margin:11px 0 12px;padding:8px 11px;background:var(--surface);border:1px solid var(--line);border-radius:7px;overflow-x:auto}
+.mp-subject{font-family:var(--mono);font-size:12.5px;white-space:nowrap}
+.mp-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.mp-actions .spacer{flex:1}
+.mp-actions a.btn{text-decoration:none}
+.delconfirm{font-size:12.5px;color:var(--crit);font-weight:600}
+.emailed{display:block;font-family:var(--mono);font-size:11px;color:var(--ok);margin-top:3px;white-space:nowrap}
+.sent-yes{color:var(--ok);font-weight:600;font-size:13px}
+.sent-no{color:var(--ink-3);font-size:13px}
 .tabs{display:flex;gap:2px;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:3px}
 .tabs button{font-family:var(--display);font-size:13px;font-weight:600;border:0;background:transparent;color:var(--ink-2);padding:6px 14px;border-radius:6px;cursor:pointer}
 .tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(18,32,30,.10)}
@@ -237,12 +253,12 @@ label.lab span{color:var(--ink-3);text-transform:none;letter-spacing:0;font-fami
   .row .c-due{grid-column:4}
   .row .c-status{grid-column:5;grid-row:3;padding:9px 0 12px;justify-self:start;align-self:start}
   .notecount{display:inline;margin-left:6px}
+  .emailed{display:inline;margin-left:8px}
   .row .c-chev{display:none}
   .detail-grid{grid-template-columns:1fr;gap:16px}
   .form-grid{grid-template-columns:1fr}
   .prios{grid-template-columns:1fr 1fr}
   .top-in{gap:10px}
-  .brand p{display:none}
 }
 @media (max-width:560px){
   .wrap{padding:0 13px}
@@ -260,6 +276,49 @@ label.lab span{color:var(--ink-3);text-transform:none;letter-spacing:0;font-fami
 /* ---------------- constants ---------------- */
 var TITLE = "RoboShip Request Board";
 var FONTS = "https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap";
+var CLIENTS = [
+  "Beauty Sleep Club",
+  "Bioroot Labs",
+  "Botanē",
+  "CRWN",
+  "Clarity MD",
+  "Clean Supplement USA",
+  "Drop Guys",
+  "Earthline Naturals",
+  "Envitamin",
+  "Erae Paris",
+  "Fieldy",
+  "Fygg",
+  "GLP-1 SOS",
+  "GumPlus",
+  "Honey Mark",
+  "Hug Sleep",
+  "Hushed Socks",
+  "Hydrant",
+  "Hyro",
+  "JadyK",
+  "Kinova Labs",
+  "Nectar Hydration",
+  "Nova",
+  "Nutrissa",
+  "Purriq",
+  "Salt of the Earth",
+  "Saphire Saffron",
+  "Shush",
+  "Vayose",
+  "Wild Pouches"
+];
+var LOGO = '<svg class="mark" width="42" height="34" viewBox="0 0 46 36" fill="none" aria-hidden="true">' +
+  '<path d="M32.5 8.2c1.6-3.2 2.7-4.9 4.4-5.8" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>' +
+  '<circle cx="37.8" cy="2.1" r="2.1" fill="currentColor"/>' +
+  '<rect x="7" y="7" width="34" height="26" rx="13" fill="currentColor"/>' +
+  '<circle cx="9.5" cy="20" r="9.6" fill="currentColor"/>' +
+  '<rect x="17.5" y="17.4" width="7.4" height="4.6" rx="2.3" fill="var(--brand-eye)"/>' +
+  '<rect x="28" y="17.4" width="7.4" height="4.6" rx="2.3" fill="var(--brand-eye)"/>' +
+'<\/svg>';
+var TEAM = ["Ariel","Coya","Shay","Mylene","Lysa","Mark"];
+var GLEN = "glen@robo3pl.com";
+var BOARD_URL = "https://claude.ai/code/artifact/2542a3a2-ad9f-418d-bfc6-70ece595706e";
 var PRIOS = [
   {k:"critical",n:"Critical",hint:"Shipments stopped or client escalating"},
   {k:"high",n:"High",hint:"Blocking someone's work today"},
@@ -309,6 +368,7 @@ var readOnly = false;
 var localOnly = false;
 var capPromise = null;
 var noteOpen = {};
+var confirmDel = null;
 
 function readState(){
   try{
@@ -458,6 +518,121 @@ function commit(mutator, okMsg){
   });
 }
 
+/* ---------------- email to Glen ---------------- */
+function emailSubject(it){
+  return "[" + prioName(it.priority).toUpperCase() + "] " + it.client +
+    " — RoboShip request #" + it.num + " (" + it.requester + ")";
+}
+function emailBody(it, full){
+  var need = String(it.need||"");
+  if(!full && need.length > 1200) need = need.slice(0,1200) + "… (full text on the board)";
+  var lines = [
+    "Priority: " + prioName(it.priority),
+    "Client: " + it.client,
+    "Submitted by: " + it.requester
+  ];
+  if(it.ref) lines.push("Order / ref: " + it.ref);
+  if(it.due) lines.push("Needed by: " + fmtDue(it.due));
+  lines.push("Submitted: " + fmtDateTime(it.createdAt));
+  lines.push("");
+  lines.push("What they need:");
+  lines.push(need);
+  lines.push("");
+  lines.push("Open the board: " + BOARD_URL);
+  return lines.join("\n");
+}
+function mailtoHref(it){
+  return "mailto:" + GLEN + "?subject=" + encodeURIComponent(emailSubject(it)) +
+    "&body=" + encodeURIComponent(emailBody(it,false));
+}
+function openMail(it){
+  var a = document.createElement("a");
+  a.href = mailtoHref(it);
+  a.target = "_blank";
+  a.rel = "noopener";
+  a.style.display = "none";
+  document.body.appendChild(a);
+  try{ a.click(); }catch(e){}
+  setTimeout(function(){ if(a.parentNode) a.parentNode.removeChild(a); }, 0);
+}
+function copyMail(it){
+  var text = "To: " + GLEN + "\nSubject: " + emailSubject(it) + "\n\n" + emailBody(it,true);
+  function fallback(){
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly","");
+    ta.style.position = "fixed";
+    ta.style.top = "-1000px";
+    document.body.appendChild(ta);
+    ta.select();
+    var ok = false;
+    try{ ok = document.execCommand("copy"); }catch(e){}
+    document.body.removeChild(ta);
+    if(ok) toast("Email copied — paste it into a message to " + GLEN + ".");
+    else showMailText(it, text);
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(function(){
+      toast("Email copied — paste it into a message to " + GLEN + ".");
+    }, fallback);
+  } else fallback();
+}
+function showMailText(it, text){
+  var host = byId("mail-fallback");
+  if(!host) return;
+  host.innerHTML = '<label class="lab" style="margin-top:12px">Copy this and send it to ' + GLEN + '</label>' +
+    '<textarea class="inp" rows="9" readonly id="mail-text"></textarea>';
+  var ta = byId("mail-text");
+  ta.value = text;
+  ta.focus();
+  ta.select();
+}
+function markEmailed(id){
+  var it = find(id);
+  if(!it || it.emailedAt) { clearPending(); renderAll(); return; }
+  var who = prefs.name || it.requester;
+  clearPending();
+  commit(function(s){
+    var t = findIn(s, id);
+    if(!t) return;
+    t.emailedAt = new Date().toISOString();
+    t.emailedBy = who;
+    t.updatedAt = new Date().toISOString();
+  }, "Marked as emailed to Glen.");
+}
+function pending(){
+  try{
+    var raw = sessionStorage.getItem("rs-pending-mail");
+    if(!raw) return null;
+    var p = JSON.parse(raw);
+    var it = find(p && p.id);
+    return it || null;
+  }catch(e){ return null; }
+}
+function stashPending(id){
+  try{ sessionStorage.setItem("rs-pending-mail", JSON.stringify({id:id})); }catch(e){}
+}
+function clearPending(){
+  try{ sessionStorage.removeItem("rs-pending-mail"); }catch(e){}
+}
+function mailPanelHTML(){
+  var it = pending();
+  if(!it) return "";
+  return '<div class="wrap"><div class="mailpanel">' +
+    '<div class="mp-head"><span class="mp-tick" aria-hidden="true">✓</span>' +
+      '<div><b>Request #' + it.num + ' is on the board.</b>' +
+      '<p>An email to ' + GLEN + ' should have opened in your mail app. Send it, then confirm here so the team can see it went out.</p></div></div>' +
+    '<div class="mp-sub"><span class="eyebrow">Subject</span><span class="mp-subject">' + esc(emailSubject(it)) + '</span></div>' +
+    '<div class="mp-actions">' +
+      '<button class="btn primary sm" data-act="mail-sent" data-id="' + esc(it.id) + '">I sent it</button>' +
+      '<a class="btn sm" href="' + esc(mailtoHref(it)) + '" target="_blank" rel="noopener" data-act="mail-again" data-id="' + esc(it.id) + '">Open the email again</a>' +
+      '<button class="btn sm" data-act="mail-copy" data-id="' + esc(it.id) + '">Copy it instead</button>' +
+      '<span class="spacer"></span>' +
+      '<button class="btn ghost sm" data-act="mail-done">Not yet</button>' +
+    '</div><div id="mail-fallback"></div>' +
+  '</div></div>';
+}
+
 /* ---------------- sorting + filtering ---------------- */
 function cmpFor(key){
   switch(key){
@@ -542,14 +717,21 @@ function shellHTML(){
 }
 function header(){
   var name = prefs.name ? esc(prefs.name) : "";
+  var custom = !!(prefs.name && TEAM.indexOf(prefs.name) === -1);
   return '<header class="top"><div class="wrap top-in">' +
-    '<div class="mark" aria-hidden="true">RS</div>' +
-    '<div class="brand"><h1>RoboShip Request Board</h1>' +
-    '<p>What the team needs from Glen, worst first</p></div>' +
+    LOGO +
+    '<div class="brand"><span class="wordmark">Robo3PL</span>' +
+    '<h1>RoboShip Request Board</h1></div>' +
     '<div class="top-right">' +
-      (name
-        ? '<span class="who">You are <b>' + name + '</b><button class="btn ghost sm" data-act="rename">Change</button></span>'
-        : '<button class="btn sm" data-act="rename">Set your name</button>') +
+      '<span class="who"><label class="eyebrow" for="whoami">You are</label>' +
+        '<select id="whoami" aria-label="Who are you?">' +
+          '<option value="">Choose…</option>' +
+          TEAM.map(function(t){ return '<option value="' + esc(t) + '"' + (prefs.name===t?" selected":"") + '>' + esc(t) + '</option>'; }).join("") +
+          (custom ? '<option value="' + name + '" selected>' + name + '</option>' : '') +
+          '<option value="__other">Someone else…</option>' +
+        '</select>' +
+        '<input id="whoami-other" class="inp" placeholder="Your name" autocomplete="off" aria-label="Your name" hidden>' +
+      '</span>' +
       '<div class="tabs" role="tablist">' +
         '<button role="tab" aria-selected="' + (prefs.tab==="queue") + '" data-act="tab" data-tab="queue">Queue</button>' +
         '<button role="tab" aria-selected="' + (prefs.tab==="submit") + '" data-act="tab" data-tab="submit">New request</button>' +
@@ -560,7 +742,7 @@ function header(){
 
 /* ---------------- render: queue ---------------- */
 function queueHTML(){
-  return statsHTML() + bannerHTML() + controlsHTML() +
+  return mailPanelHTML() + statsHTML() + bannerHTML() + controlsHTML() +
     '<div class="board"><div class="scroller">' + headHTML() + listHTML() + '</div></div>';
 }
 function statsHTML(){
@@ -680,7 +862,8 @@ function rowHTML(it){
     '<div class="cell c-age"><span class="age ' + ageCls + '">' + (isOpen(it) ? '<b>' + age + '</b>d' : '—') + '</span></div>' +
     '<div class="cell c-due"><span class="due' + (overdue ? " over" : "") + '">' + (it.due ? fmtDue(it.due) + (overdue ? " ⚠" : "") : "—") + '</span></div>' +
     '<div class="cell c-status"><span class="pill s-' + esc(it.status) + '">' + statusName(it.status) + '</span>' +
-      (notes ? '<span class="notecount">' + notes + ' note' + (notes===1?"":"s") + '</span>' : "") + '</div>' +
+      (notes ? '<span class="notecount">' + notes + ' note' + (notes===1?"":"s") + '</span>' : "") +
+      (it.emailedAt ? '<span class="emailed" title="Emailed to ' + GLEN + '">✉ Emailed</span>' : "") + '</div>' +
     '<div class="cell c-chev"><svg class="chev" width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">' +
       '<path d="m6 3 5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>' +
   '</div>';
@@ -719,6 +902,9 @@ function detailHTML(it){
           (it.ref ? '<dt>Order / ref</dt><dd class="mono">' + esc(it.ref) + '</dd>' : "") +
           (it.due ? '<dt>Needed by</dt><dd class="mono' + (isOverdue(it) ? " due over" : "") + '">' + fmtDue(it.due) + '</dd>' : "") +
           '<dt>Last update</dt><dd class="mono">' + fmtDateTime(it.updatedAt || it.createdAt) + '</dd>' +
+          '<dt>Email to Glen</dt><dd>' + (it.emailedAt
+            ? '<span class="sent-yes">✉ Sent' + (it.emailedBy ? ' by ' + esc(it.emailedBy) : '') + '</span><br><span class="mono" style="font-size:12px;color:var(--ink-3)">' + fmtDateTime(it.emailedAt) + '</span>'
+            : '<span class="sent-no">Not marked as sent</span>') + '</dd>' +
         '</dl>' +
       '</div>' +
     '</div>' +
@@ -731,10 +917,16 @@ function detailHTML(it){
             PRIOS.map(function(p){ return '<option value="' + p.k + '"' + (it.priority===p.k?" selected":"") + '>' + p.n + '</option>'; }).join("") +
           '</select>' +
           '<span class="spacer"></span>' +
+          '<button class="btn sm" data-act="mail-row" data-id="' + esc(it.id) + '">Email Glen</button>' +
+          (it.emailedAt ? '' : '<button class="btn sm" data-act="mail-mark" data-id="' + esc(it.id) + '">Mark emailed</button>') +
           (isOpen(it)
             ? '<button class="btn sm" data-act="resolve" data-id="' + esc(it.id) + '">Mark resolved</button>'
             : '<button class="btn sm" data-act="reopen" data-id="' + esc(it.id) + '">Reopen</button>') +
-          '<button class="btn ghost sm danger" data-act="del" data-id="' + esc(it.id) + '">Delete</button>'
+          (confirmDel === it.id
+            ? '<span class="delconfirm">Delete #' + it.num + ' for everyone?</span>' +
+              '<button class="btn sm danger" data-act="del-yes" data-id="' + esc(it.id) + '">Yes, delete</button>' +
+              '<button class="btn ghost sm" data-act="del-no" data-id="' + esc(it.id) + '">Keep it</button>'
+            : '<button class="btn ghost sm danger" data-act="del" data-id="' + esc(it.id) + '">Delete</button>')
         : '<span style="font-size:12.5px;color:var(--ink-3)">' + (it.sample ? "Example row — not saved to the board." : "View only — you can’t change this request.") + '</span>') +
     '</div>' +
   '</div>';
@@ -744,19 +936,33 @@ function detailHTML(it){
 function formHTML(){
   var d = prefs.draft || {};
   var prio = d.priority || "";
+  var otherClient = !!(d.client && CLIENTS.indexOf(d.client) === -1);
+  var who = d.requester != null ? d.requester : (prefs.name||"");
+  var otherName = !!(who && TEAM.indexOf(who) === -1);
   return '<div class="panel"><header>' +
     '<h2>New request for Glen</h2>' +
-    '<p>Say what you need and how urgent it is. It lands on the board straight away, and Glen sees the worst first.</p>' +
+    '<p>Say what you need and how urgent it is. It lands on the board straight away, and opens an email to Glen with the priority in the subject line.</p>' +
     '</header>' +
     '<form id="rs-form" novalidate>' +
     '<div class="form-grid">' +
       '<div><label class="lab" for="f-name">Your name</label>' +
-        '<input class="inp" id="f-name" value="' + esc(d.requester != null ? d.requester : (prefs.name||"")) + '" placeholder="Who to come back to" autocomplete="off">' +
-        '<p class="err" id="e-name">Add your name so Glen knows who to answer.</p></div>' +
-      '<div><label class="lab" for="f-client">Client</label>' +
-        '<input class="inp" id="f-client-in" value="' + esc(d.client||"") + '" placeholder="Which account this is for" autocomplete="off" list="client-list">' +
-        '<datalist id="client-list">' + clients().map(function(c){ return '<option value="' + esc(c) + '"></option>'; }).join("") + '</datalist>' +
-        '<p class="err" id="e-client">Add the client this is for.</p></div>' +
+        '<select class="inp" id="f-name">' +
+          '<option value="">Who is asking?…</option>' +
+          TEAM.map(function(t){ return '<option value="' + esc(t) + '"' + (who===t?" selected":"") + '>' + esc(t) + '</option>'; }).join("") +
+          '<option value="__other"' + (otherName?" selected":"") + '>Someone else…</option>' +
+        '</select>' +
+        '<input class="inp" id="f-name-other" placeholder="Your name" autocomplete="off" style="margin-top:8px"' +
+          (otherName ? ' value="' + esc(who) + '"' : ' hidden') + '>' +
+        '<p class="err" id="e-name">Pick your name so Glen knows who to answer.</p></div>' +
+      '<div><label class="lab" for="f-client-in">Client</label>' +
+        '<select class="inp" id="f-client-in">' +
+          '<option value="">Choose a client…</option>' +
+          CLIENTS.map(function(c){ return '<option value="' + esc(c) + '"' + (d.client===c?" selected":"") + '>' + esc(c) + '</option>'; }).join("") +
+          '<option value="__other"' + (otherClient?" selected":"") + '>Another client…</option>' +
+        '</select>' +
+        '<input class="inp" id="f-client-other" placeholder="Client name" autocomplete="off" style="margin-top:8px"' +
+          (otherClient ? ' value="' + esc(d.client||"") + '"' : ' hidden') + '>' +
+        '<p class="err" id="e-client">Pick the client this is for.</p></div>' +
       '<div class="f-full"><label class="lab" for="f-need">What you need <span>or what you’re waiting on</span></label>' +
         '<textarea class="inp" id="f-need" rows="4" placeholder="Be specific: what is stuck, which orders or SKUs, what you already tried">' + esc(d.need||"") + '</textarea>' +
         '<p class="err" id="e-need">Describe what you need from Glen.</p></div>' +
@@ -774,7 +980,7 @@ function formHTML(){
         '<input class="inp" id="f-due" type="date" value="' + esc(d.due||"") + '"></div>' +
     '</div>' +
     '<div class="form-foot">' +
-      '<span class="hint">Everyone with the link sees this the moment you send it.</span>' +
+      '<span class="hint">Lands on the board straight away, and opens an email to Glen for you to send.</span>' +
       '<button type="button" class="btn" data-act="cancel-form">Cancel</button>' +
       '<button type="submit" class="btn primary" data-act="submit">Send to the board</button>' +
     '</div>' +
@@ -807,7 +1013,8 @@ function onKeydown(e){
   }
 }
 function toggle(id){
-  if(expanded[id]) delete expanded[id]; else expanded[id] = true;
+  if(confirmDel && confirmDel !== id) confirmDel = null;
+  if(expanded[id]){ delete expanded[id]; if(confirmDel === id) confirmDel = null; } else expanded[id] = true;
   renderAll();
 }
 function onClick(e){
@@ -831,18 +1038,23 @@ function onClick(e){
   }
   if(act === "preview"){ previewOn = true; renderAll(); return; }
   if(act === "clearfilters"){ prefs.q = ""; prefs.client = ""; prefs.prio = ""; prefs.view = "open"; savePrefs(); renderAll(); return; }
-  if(act === "rename"){ askName(true); return; }
   if(act === "csv"){ exportCsv(); return; }
   if(act === "cancel-form"){ prefs.draft = {}; savePrefs(); prefs.tab = "queue"; renderAll(); return; }
   if(act === "note-open"){ noteOpen[id] = true; renderAll(); var t = byId("note-"+id); if(t) t.focus(); return; }
   if(act === "note-cancel"){ delete noteOpen[id]; renderAll(); return; }
   if(act === "note-save"){ saveNote(id); return; }
+  if(act === "mail-done"){ clearPending(); renderAll(); return; }
+  if(act === "mail-sent"){ markEmailed(id); return; }
+  if(act === "mail-mark"){ markEmailed(id); return; }
+  if(act === "mail-copy"){ var mi = find(id); if(mi) copyMail(mi); return; }
+  if(act === "mail-again"){ return; }
+  if(act === "mail-row"){ var ri = find(id); if(ri) openMail(ri); return; }
   if(act === "resolve"){ setStatus(id, "done"); return; }
   if(act === "reopen"){ setStatus(id, "active"); return; }
-  if(act === "del"){
-    var it = find(id);
-    if(!it) return;
-    if(!window.confirm("Delete request #" + it.num + " for " + it.client + "? This removes it for everyone.")) return;
+  if(act === "del"){ confirmDel = id; renderAll(); return; }
+  if(act === "del-no"){ confirmDel = null; renderAll(); return; }
+  if(act === "del-yes"){
+    confirmDel = null;
     commit(function(s){
       s.items = s.items.filter(function(x){ return x.id !== id; });
     }, "Request deleted.");
@@ -864,6 +1076,36 @@ function onChange(e){
     }, "Priority updated.");
     return;
   }
+  if(el.id === "f-name" || el.id === "f-client-in"){
+    var otherId = el.id === "f-name" ? "f-name-other" : "f-client-other";
+    var other = byId(otherId);
+    if(other){
+      if(el.value === "__other"){ other.hidden = false; other.focus(); }
+      else { other.hidden = true; other.value = ""; }
+    }
+    var eid = el.id === "f-name" ? "e-name" : "e-client";
+    var eb = byId(eid); if(eb) eb.setAttribute("data-on","0");
+    el.setAttribute("aria-invalid","false");
+    saveDraft();
+    return;
+  }
+  if(el.id === "whoami-other"){
+    var nv = el.value.trim().slice(0,40);
+    if(nv){ prefs.name = nv; savePrefs(); }
+    renderAll();
+    return;
+  }
+  if(el.id === "whoami"){
+    if(el.value === "__other"){
+      var wi = byId("whoami-other");
+      if(wi){ wi.hidden = false; wi.focus(); }
+      return;
+    }
+    prefs.name = el.value;
+    savePrefs();
+    renderAll();
+    return;
+  }
   if(el.name === "prio"){
     var wrap = el.closest(".prios");
     if(wrap) Array.prototype.forEach.call(wrap.querySelectorAll(".prio"), function(l){
@@ -877,9 +1119,10 @@ function onChange(e){
 function onInput(e){
   var el = e.target;
   if(el.id === "q"){ prefs.q = el.value; savePrefs(); renderAll(); return; }
+  if(el.id === "whoami-other"){ return; }
   if(el.id && el.id.indexOf("f-") === 0){
     saveDraft();
-    var map = {"f-name":"e-name","f-client-in":"e-client","f-need":"e-need"};
+    var map = {"f-name":"e-name","f-name-other":"e-name","f-client-in":"e-client","f-client-other":"e-client","f-need":"e-need"};
     if(map[el.id]){
       var err = byId(map[el.id]);
       if(err) err.setAttribute("data-on","0");
@@ -892,8 +1135,8 @@ function saveDraft(){
   if(!f) return;
   var checked = f.querySelector('input[name="prio"]:checked');
   prefs.draft = {
-    requester: val("f-name"),
-    client: val("f-client-in"),
+    requester: pickVal("f-name","f-name-other"),
+    client: pickVal("f-client-in","f-client-other"),
     need: val("f-need"),
     ref: val("f-ref"),
     due: val("f-due"),
@@ -902,6 +1145,12 @@ function saveDraft(){
   savePrefs();
 }
 function val(id){ var el = byId(id); return el ? el.value : ""; }
+function pickVal(selId, otherId){
+  var sel = byId(selId);
+  if(!sel) return "";
+  if(sel.value === "__other"){ var o = byId(otherId); return o ? o.value : ""; }
+  return sel.value;
+}
 function find(id){ return findIn(state, id); }
 function findIn(s, id){
   for(var i=0;i<s.items.length;i++) if(s.items[i].id === id) return s.items[i];
@@ -909,19 +1158,11 @@ function findIn(s, id){
 }
 
 /* ---------------- actions ---------------- */
-function askName(force){
-  var current = prefs.name || "";
-  var v = window.prompt("What name should show on the board?", current);
-  if(v == null) return null;
-  v = v.trim().slice(0,40);
-  if(!v) return null;
-  prefs.name = v;
-  savePrefs();
-  if(force) renderAll();
-  return v;
-}
 function whoAmI(){
-  return prefs.name || askName(false);
+  if(prefs.name) return prefs.name;
+  var sel = byId("whoami");
+  if(sel && sel.focus) sel.focus();
+  return null;
 }
 function setStatus(id, next){
   var it = find(id);
@@ -939,7 +1180,7 @@ function saveNote(id){
   var text = box.value.trim();
   if(!text){ box.focus(); return; }
   var who = whoAmI();
-  if(!who){ toast("Add your name first so the note is attributed.","warn"); return; }
+  if(!who){ toast("Choose your name in the top bar first, so the note is attributed.","warn"); return; }
   delete noteOpen[id];
   commit(function(s){
     var t = findIn(s, id);
@@ -954,8 +1195,8 @@ function submitForm(){
   if(!f) return;
   var checked = f.querySelector('input[name="prio"]:checked');
   var data = {
-    requester: val("f-name").trim(),
-    client: val("f-client-in").trim(),
+    requester: pickVal("f-name","f-name-other").trim(),
+    client: pickVal("f-client-in","f-client-other").trim(),
     need: val("f-need").trim(),
     ref: val("f-ref").trim(),
     due: val("f-due"),
@@ -981,23 +1222,26 @@ function submitForm(){
   savePrefs();
   previewOn = false;
   var now = new Date().toISOString();
+  var item = {
+    id: uid(), num: state.seq || 1,
+    client: data.client, requester: data.requester,
+    priority: data.priority, status: "new",
+    need: data.need, ref: data.ref, due: data.due,
+    createdAt: now, updatedAt: now, notes: []
+  };
+  openMail(item);
+  stashPending(item.id);
   commit(function(s){
-    var num = s.seq || 1;
-    s.seq = num + 1;
-    s.items.push({
-      id: uid(), num: num,
-      client: data.client, requester: data.requester,
-      priority: data.priority, status: "new",
-      need: data.need, ref: data.ref, due: data.due,
-      createdAt: now, updatedAt: now, notes: []
-    });
+    item.num = s.seq || 1;
+    s.seq = item.num + 1;
+    s.items.push(item);
   }, "Sent to the board.");
   window.scrollTo(0,0);
 }
 function exportCsv(){
   var rows = visibleItems().filter(function(i){ return !i.sample; });
   if(!rows.length){ toast("Nothing to export in this view.","warn"); return; }
-  var head = ["Request #","Priority","Status","Client","Submitted by","What they need","Order/ref","Needed by","Submitted","Days waiting","Notes"];
+  var head = ["Request #","Priority","Status","Client","Submitted by","What they need","Order/ref","Needed by","Submitted","Days waiting","Emailed Glen","Notes"];
   function cell(v){ return '"' + String(v==null?"":v).replace(/"/g,'""') + '"'; }
   var lines = [head.map(cell).join(",")];
   rows.forEach(function(it){
@@ -1005,6 +1249,7 @@ function exportCsv(){
       it.num, prioName(it.priority), statusName(it.status), it.client, it.requester,
       it.need, it.ref, it.due, new Date(it.createdAt).toISOString().slice(0,10),
       isOpen(it) ? days(it.createdAt) : "",
+      it.emailedAt ? new Date(it.emailedAt).toISOString().slice(0,16).replace("T"," ") : "no",
       (it.notes||[]).map(function(n){ return n.by + ": " + n.text; }).join(" | ")
     ].map(cell).join(","));
   });

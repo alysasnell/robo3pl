@@ -8,9 +8,10 @@ so nothing lives in scattered DMs. Submissions land in one queue, sorted worst-f
 ## What it does
 
 **For the team — "New request" tab**
-- Your name, client, what you need or are waiting on, and a priority
+- Pick your name and the client from dropdowns, say what you need, set a priority
 - Optional order/ref # and a "needed by" date
 - Drafts are kept in your browser, so a half-typed request survives a refresh
+- On submit it opens a pre-filled email to Glen (see **Emailing Glen** below)
 
 **For Glen — "Queue" tab**
 - Default sort is priority (Critical → Low), oldest first inside each level
@@ -19,7 +20,7 @@ so nothing lives in scattered DMs. Submissions land in one queue, sorted worst-f
 - Filter by open/resolved/all, by client, by priority, or search across everything
 - Counters up top: open requests, critical waiting, longest wait in days, resolved this week
 - Open a row to read the full request, post a note back, change status or priority,
-  mark it resolved, or delete it
+  mark it resolved, re-send the email, or delete it
 - Export the current view to CSV
 
 Statuses are **Submitted** (waiting on Glen), **Glen working**, **Needs your reply**
@@ -27,6 +28,54 @@ Statuses are **Submitted** (waiting on Glen), **Glen working**, **Needs your rep
 
 Rows age visibly: the day count turns amber at 4 days, red at 7 — or at 2 days if it's
 critical. A past "needed by" date flags as overdue.
+
+## Emailing Glen
+
+A published page has no server and is blocked from calling outside services, so it cannot
+send mail by itself. What it does instead: submitting a request opens a pre-filled email in
+the submitter's own mail app, addressed to glen@robo3pl.com, with the priority in the
+subject line:
+
+```
+[CRITICAL] Envitamin — RoboShip request #12 (Ariel)
+```
+
+The body carries priority, client, submitter, ref #, needed-by, the full request text, and a
+link back to the board. If the sandbox blocks the mail app from opening, the confirmation
+panel has **Open the email again** and **Copy it instead**, which puts the whole message on
+the clipboard.
+
+Because the page can't see inside anyone's mail client, it can't know whether the message
+was actually sent — so the submitter confirms with **I sent it**. That records who marked it
+and when, shows an "✉ Emailed" marker on the row, and fills in the **Email to Glen** line in
+the request detail (which otherwise reads "Not marked as sent"). Requests can also be
+emailed or marked from their detail panel later.
+
+Making this fully automatic would need either an email connector in claude.ai (the page could
+then send through the submitter's own account) or a real backend — neither exists here today.
+
+## Rosters
+
+`index.html` holds two lists near the top of the script, edit them there to change the options:
+
+- `TEAM` — Ariel, Coya, Shay, Mylene, Lysa, Mark
+- `CLIENTS` — the 30 RoboShip clients: Beauty Sleep Club, Bioroot Labs, Botanē, CRWN,
+  Clarity MD, Clean Supplement USA, Drop Guys, Earthline Naturals, Envitamin, Erae Paris,
+  Fieldy, Fygg, GLP-1 SOS, GumPlus, Honey Mark, Hug Sleep, Hushed Socks, Hydrant, Hyro,
+  JadyK, Kinova Labs, Nectar Hydration, Nova, Nutrissa, Purriq, Salt of the Earth,
+  Saphire Saffron, Shush, Vayose, Wild Pouches
+
+Both pickers have an "Another client…" / "Someone else…" option, so a name that isn't on a
+list can still be typed in without a code change.
+
+## Branding
+
+Robo3PL blue (`--brand: #3d7bfb`) on navy-tinted neutrals, with the robot mark drawn as
+inline SVG in the header lockup. Priority colors are deliberately kept off the brand hue so
+they never read as an accent: Critical red, High amber, Medium teal, Low grey.
+
+The mark is a hand-drawn approximation of the logo. Drop the real asset in the repo and it
+can be embedded properly instead.
 
 ## How it's built
 
@@ -37,6 +86,9 @@ every open browser reloads to. The `downloads` capability powers the CSV export.
 
 Everyone who writes to the board needs **edit access** to the artifact. Viewers with
 read-only access see the queue but get a "View only" banner instead of the write controls.
+
+There are no native `alert`/`confirm`/`prompt` dialogs anywhere — sandboxed frames often
+block them — so deletes use a two-step inline confirm and identity is a picker in the header.
 
 ### Redeploying
 
