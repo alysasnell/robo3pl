@@ -869,6 +869,9 @@ function toggle(id){
   renderAll();
 }
 function onClick(e){
+  if(e.target && e.target.id === "f-due" && e.target.showPicker){
+    try{ e.target.showPicker(); }catch(err){}
+  }
   var el = closestAct(e.target);
   if(!el) return;
   var act = el.getAttribute("data-act");
