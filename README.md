@@ -3,7 +3,7 @@
 A shared board where the team logs what they're waiting on from Glen in RoboShip (our WMS),
 so nothing lives in scattered DMs. Submissions land in one queue, sorted worst-first.
 
-**Live board:** https://claude.ai/code/artifact/2542a3a2-ad9f-418d-bfc6-70ece595706e
+**Live board:** https://teamrobo.help
 
 ## What it does
 
@@ -30,7 +30,8 @@ critical. A past "needed by" date flags as overdue.
 
 ## Rosters
 
-`index.html` holds two lists near the top of the script, edit them there to change the options:
+`src/index.js` holds two lists near the top of `CLIENT_JS`, edit them there to change the
+options:
 
 - `TEAM` — Ariel, Coya, Shay, Mylene, Lysa, Mark, Jentsyn
 - `CLIENTS` — the 30 RoboShip clients: Beauty Sleep Club, Bioroot Labs, Botane, CRWN,
@@ -48,46 +49,69 @@ Robo3PL blue (`--brand: #3d7bfb`) on navy-tinted neutrals, with the robot mark d
 inline SVG in the header lockup. Priority colors are deliberately kept off the brand hue so
 they never read as an accent: Critical red, High amber, Medium teal, Low grey.
 
-The mark is a hand-drawn approximation of the logo. Drop the real asset in the repo and it
-can be embedded properly instead.
+The mark is a hand-drawn approximation of the logo. Drop the real asset in and it can be
+embedded properly instead.
 
 ## How it's built
 
-`index.html` is the whole thing — one self-contained page, no server and no database.
-It runs as a Claude Artifact using the `artifact` capability: the page stores its data as
-JSON inside itself, and each submission or edit publishes a new version of the page, which
-every open browser reloads to. `artifact` is the only capability it declares — deliberately:
-an artifact that offers file downloads cannot be shared with "anyone with the link", so the
-CSV export copies to the clipboard instead of saving a file. Paste it straight into Excel or
-Sheets.
+This used to run as a Claude Artifact (self-contained HTML, saved by republishing the whole
+page). It's now a **Cloudflare Worker + KV** app instead, so it can live at
+`teamrobo.help` directly with no claude.ai account needed to read or write:
 
-Everyone who writes to the board needs **edit access** to the artifact. Viewers with
-read-only access see the queue but get a "View only" banner instead of the write controls.
+- `src/index.js` is the whole thing: a Worker that serves the page (HTML/CSS/JS, all
+  embedded as strings) and a small JSON API under `/api/*`.
+- State lives in a KV namespace (binding `BOARD_KV`) under one key, `board`, holding
+  `{v, seq, items: [...]}`. On first read, if that key is empty, the Worker seeds it from
+  `SEED_STATE` (a snapshot of the real queue at the time of the migration) so the switch
+  from the artifact doesn't lose anything.
+- The client JS renders from the state the Worker embeds in the initial HTML response
+  (same render code as before), then talks to `/api/requests` for every write instead of
+  publishing a whole new document.
 
-There are no native `alert`/`confirm`/`prompt` dialogs anywhere — sandboxed frames often
-block them — so deletes use a two-step inline confirm and identity is a picker in the header.
+API surface:
 
-Do not add the `downloads` capability back without checking the sharing consequence above.
+| Method | Path | Does |
+|---|---|---|
+| GET | `/api/state` | Returns `{v, seq, items}` |
+| POST | `/api/requests` | Creates a request; body `{requester, client, priority, need, ref, due}` |
+| PATCH | `/api/requests/:id` | Updates `status` and/or `priority` |
+| POST | `/api/requests/:id/notes` | Appends a note; body `{by, text}` |
+| DELETE | `/api/requests/:id` | Removes a request |
 
-### Redeploying
+Access is fully open — same as the old "anyone with the link" artifact sharing — there's no
+login. Anyone who can reach the domain can submit, edit, resolve, or delete. If that ever
+needs to change (e.g. a shared passphrase gating Glen's actions), that's a small addition to
+the Worker, not a rebuild.
 
-Republishing `index.html` from this repo **replaces the live page, including its data**.
-The board is in use, so its live state must be merged before any publish: read the published
-artifact, copy the JSON out of its `<script id="rs-state">` tag into this file's matching tag,
-then publish. The publish tool refuses and hands over the live source when someone has saved
-since your last publish — merge from that, never overwrite it.
+### Deploying
 
-The committed `rs-state` in this file is therefore a snapshot, not the source of truth; the
-live artifact is.
+```sh
+npm install
+npx wrangler login
+npx wrangler kv namespace create BOARD_KV
+```
+
+Paste the namespace id the last command prints into `wrangler.toml`'s `kv_namespaces` entry,
+then:
+
+```sh
+npx wrangler deploy
+```
+
+Point `teamrobo.help` at the deployed Worker (Cloudflare dashboard → Workers & Pages → your
+Worker → **Settings → Domains & Routes** → Add a custom domain), or uncomment the `routes`
+block in `wrangler.toml` and redeploy once the domain's zone is on this account.
+
+The very first deploy seeds KV from `SEED_STATE` in `src/index.js` automatically — no manual
+data import needed. After that, KV is the source of truth; `SEED_STATE` is only a fallback
+for an empty namespace, not something to keep syncing.
 
 ### Local development
 
-The file is published as a fragment (no `<html>`/`<head>`/`<body>` — those get added at
-publish time), so to open it directly in a browser, wrap it:
-
 ```sh
-{ echo '<!doctype html><html><head><meta charset="utf-8"></head><body>'; cat index.html; echo '</body></html>'; } > /tmp/preview.html
+npm install
+npx wrangler dev
 ```
 
-Saving is inert outside the artifact viewer — the page says so with a "Not saving" banner
-rather than silently dropping changes.
+Serves the board at `http://localhost:8787` against a local KV emulation — safe to hit the
+API and mutate freely without touching production data.
