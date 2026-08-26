@@ -69,6 +69,18 @@ block them — so deletes use a two-step inline confirm and identity is a picker
 
 Do not add the `downloads` capability back without checking the sharing consequence above.
 
+### Custom domain (teamrobo.help)
+
+`wrangler.jsonc` and `src/index.js` are a tiny Cloudflare Worker whose only job is to redirect
+`teamrobo.help` to the live artifact URL above. It exists because a Worker can't run the
+artifact page itself — serving `index.html` as a static file would drop the claude.ai
+capability bridge that lets the page save, leaving visitors stuck with the "Not saving" banner.
+Redirecting instead means the address bar changes to claude.ai once someone lands on the
+board, but everything (submitting, notes, status changes) actually saves.
+
+If `BOARD_URL` in `src/index.js` ever changes (e.g. the artifact gets republished under a new
+URL), update it there — it's the only place that needs to change.
+
 ### Redeploying
 
 Republishing `index.html` from this repo **replaces the live page, including its data**.
