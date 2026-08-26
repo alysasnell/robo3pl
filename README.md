@@ -1,6 +1,6 @@
 # Glen's Mailbox
 
-Every RoboShip (our WMS) issue that needs Glen's hands, in one place — so nothing lives in
+Every RoboShip (our WMS) issue only Glen can fix, in one place — so nothing lives in
 scattered DMs. Submissions land in one queue, sorted worst-first.
 
 **Live board:** https://teamrobo.help
