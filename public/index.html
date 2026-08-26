@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RoboShip Request Board</title>
+<title>Glen's Mailbox</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
 :root{
@@ -63,6 +63,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .mark{flex:none;color:var(--brand);display:block}
 .wordmark{display:block;font-family:var(--display);font-size:12.5px;font-weight:700;letter-spacing:.01em;color:var(--brand);line-height:1;margin-bottom:2px}
 .brand h1{font-size:clamp(17px,2.2vw,20px);font-weight:700;line-height:1.15}
+.tagline{margin:3px 0 0;font-size:12.5px;color:var(--ink-2);max-width:46ch}
 .top-right{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .who{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink-2)}
 .who select{padding:6px 9px;font-size:13px}
@@ -302,13 +303,22 @@ var CLIENTS = [
   "Vayose",
   "Wild Pouches"
 ];
-var LOGO = '<svg class="mark" width="42" height="34" viewBox="0 0 46 36" fill="none" aria-hidden="true">' +
-  '<path d="M32.5 8.2c1.6-3.2 2.7-4.9 4.4-5.8" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>' +
-  '<circle cx="37.8" cy="2.1" r="2.1" fill="currentColor"/>' +
-  '<rect x="7" y="7" width="34" height="26" rx="13" fill="currentColor"/>' +
-  '<circle cx="9.5" cy="20" r="9.6" fill="currentColor"/>' +
-  '<rect x="17.5" y="17.4" width="7.4" height="4.6" rx="2.3" fill="var(--brand-eye)"/>' +
-  '<rect x="28" y="17.4" width="7.4" height="4.6" rx="2.3" fill="var(--brand-eye)"/>' +
+var LOGO = '<svg class="mark" width="42" height="38" viewBox="0 0 100 90" fill="none" aria-hidden="true">' +
+  '<circle cx="10" cy="58" r="9" fill="#3d7bfb"/>' +
+  '<circle cx="58" cy="58" r="9" fill="#3d7bfb"/>' +
+  '<rect x="12" y="35" width="44" height="42" rx="16" fill="#3d7bfb" stroke="#131c2e" stroke-width="3"/>' +
+  '<rect x="18" y="41" width="32" height="30" rx="10" fill="#cfe0ff" stroke="#131c2e" stroke-width="2.5"/>' +
+  '<circle cx="27" cy="56" r="3.2" fill="#131c2e"/>' +
+  '<circle cx="41" cy="56" r="3.2" fill="#131c2e"/>' +
+  '<path d="M31 63 Q34 66.5 37 63" stroke="#131c2e" stroke-width="2.2" fill="none" stroke-linecap="round"/>' +
+  '<rect x="27" y="22" width="14" height="14" rx="7" fill="#3d7bfb" stroke="#131c2e" stroke-width="2.5"/>' +
+  '<line x1="34" y1="22" x2="32" y2="10" stroke="#131c2e" stroke-width="2.5" stroke-linecap="round"/>' +
+  '<circle cx="31" cy="8" r="4" fill="#3d7bfb" stroke="#131c2e" stroke-width="2.5"/>' +
+  '<rect x="50" y="5" width="42" height="26" rx="8" fill="#3d7bfb" stroke="#131c2e" stroke-width="3"/>' +
+  '<path d="M58 31 L52 40 L66 31 Z" fill="#3d7bfb" stroke="#131c2e" stroke-width="3" stroke-linejoin="round"/>' +
+  '<circle cx="62" cy="18" r="3" fill="#fff"/>' +
+  '<circle cx="71" cy="18" r="3" fill="#fff"/>' +
+  '<circle cx="80" cy="18" r="3" fill="#fff"/>' +
 '<\/svg>';
 var TEAM = ["Ariel","Coya","Shay","Mylene","Lysa","Mark","Jentsyn"];
 var PRIOS = [
@@ -355,7 +365,7 @@ var loaded = false;
 var loadError = false;
 var prefs = loadPrefs();
 if(!prefs.sort){prefs.sort="priority";prefs.dir="nat";}
-if(!prefs.tab) prefs.tab = "queue";
+prefs.tab = "queue";
 if(!prefs.view) prefs.view = "open";
 var expanded = {};
 var previewOn = false;
@@ -574,7 +584,8 @@ function header(){
   return '<header class="top"><div class="wrap top-in">' +
     LOGO +
     '<div class="brand"><span class="wordmark">Robo3PL</span>' +
-    '<h1>RoboShip Request Board</h1></div>' +
+    '<h1>Glen\'s Mailbox</h1>' +
+    '<p class="tagline">Every RoboShip issue only Glen can fix, in one place - so nothing gets lost in DMs.</p></div>' +
     '<div class="top-right">' +
       '<span class="who"><label class="eyebrow" for="whoami">You are</label>' +
         '<select id="whoami" aria-label="Who are you?">' +
@@ -869,6 +880,9 @@ function toggle(id){
   renderAll();
 }
 function onClick(e){
+  if(e.target && e.target.id === "f-due" && e.target.showPicker){
+    try{ e.target.showPicker(); }catch(err){}
+  }
   var el = closestAct(e.target);
   if(!el) return;
   var act = el.getAttribute("data-act");
