@@ -207,8 +207,11 @@ label.lab span{color:var(--ink-3);text-transform:none;letter-spacing:0;font-fami
 .inp[aria-invalid="true"]{border-color:var(--crit)}
 
 /* ---------- misc ---------- */
-.banner{display:flex;gap:9px;align-items:flex-start;border:1px solid var(--high-line);background:var(--high-bg);color:var(--high);border-radius:8px;padding:9px 13px;font-size:13px;margin:14px 0 0}
+.banner{display:flex;gap:9px;align-items:center;flex-wrap:wrap;border:1px solid var(--high-line);background:var(--high-bg);color:var(--high);border-radius:8px;padding:9px 13px;font-size:13px;margin:14px 0 0}
 .banner b{font-weight:600}
+.banner .spacer{flex:1;min-width:8px}
+.banner .btn{color:var(--high);border-color:var(--high-line)}
+.banner .btn:hover{background:var(--surface)}
 .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(8px);background:var(--ink);color:var(--ground);padding:10px 16px;border-radius:8px;font-size:13.5px;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:opacity .18s ease,transform .18s ease;z-index:60;max-width:min(520px,90vw);text-align:center}
 .toast[data-on="1"]{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast[data-kind="warn"]{background:var(--crit);color:#fff}
@@ -254,7 +257,7 @@ label.lab span{color:var(--ink-3);text-transform:none;letter-spacing:0;font-fami
 </style>
 
 <div id="app"></div>
-<script id="rs-state" type="application/json">{"v":1,"seq":17,"items":[{"id":"rmt7mojnj7cc1a","num":1,"client":"Fygg","requester":"Lysa","priority":"critical","status":"new","need":"Fygg Nitric Oxide Mints are getting marked as fulfilled in Robo and Packiyo, but they are on backorder in Packiyo (-515). To our understanding, we do not have these in the warehouse and they are not actually being fulfilled. Customers are reporting they are not receiving these. Can we look into why they are being marked as fulfilled while they are on backorder?  Is it Robo or Packiyo?","ref":"#116163, NOX-LOZ-30","due":"2026-08-25","createdAt":"2026-08-24T19:27:37.855Z","updatedAt":"2026-08-24T19:27:37.855Z","notes":[]},{"id":"rmt7mz59w30i3o","num":2,"client":"GLP-1 SOS","requester":"Lysa","priority":"medium","status":"new","need":"Date of when we turned on Passport for GLP-1 SOS","ref":"","due":"2026-08-26","createdAt":"2026-08-24T19:35:52.436Z","updatedAt":"2026-08-24T19:37:27.414Z","notes":[{"by":"Lysa","text":"They have shipments that went out with USPS as the carrier up to 7/16 with customs issues and we just want to verify that there wasn't an error and those should have used Passport as the carrier. I don't think so, but double checking.\n\nCan we add this info as a timeline history with the user attached to it in Robo when updating the carriers per client?","at":"2026-08-24T19:37:27.414Z"}]},{"id":"rmt7n2ohxvkqyu","num":3,"client":"Beauty Sleep Club","requester":"Lysa","priority":"low","status":"new","need":"Can I turn on UniUni for Beauty Sleep? Can I check the box or uncheck the box for carriers at anytime for clients?","ref":"","due":"2026-08-28","createdAt":"2026-08-24T19:38:37.317Z","updatedAt":"2026-08-24T19:38:37.317Z","notes":[]},{"id":"rmt7n3jldpdrdf","num":4,"client":"Rielle","requester":"Lysa","priority":"low","status":"new","need":"Is Robo going to have API or MCP access for clients?","ref":"","due":"2026-08-28","createdAt":"2026-08-24T19:39:17.617Z","updatedAt":"2026-08-24T19:39:17.617Z","notes":[]},{"id":"rmt7n4uhcigsjw","num":5,"client":"Kinova & Shush","requester":"Lysa","priority":"low","status":"new","need":"Can you give me an ETA on their first invoice? They have questions on shipment cost $ and it would be helpful to just get their first invoice over to them.","ref":"","due":"2026-08-26","createdAt":"2026-08-24T19:40:18.384Z","updatedAt":"2026-08-24T19:40:18.384Z","notes":[]},{"id":"rmt7n89hdvb32c","num":6,"client":"Hug Sleep","requester":"Lysa","priority":"high","status":"new","need":"Should we be disconnecting clients from Packiyo once they are fully transferred to Robo? \n\n\"Fulfilled externally\" is happening: Robo fulfills or makes an update > Marks fulfilled in Shopify > Shopify updates Packiyo > Packiyo updates Robo. Is this updating inventory twice and that is contributing to inventory being off?","ref":"","due":"2026-08-25","createdAt":"2026-08-24T19:42:57.793Z","updatedAt":"2026-08-24T19:42:57.793Z","notes":[]},{"id":"rmt7nb39buybfa","num":7,"client":"Fygg","requester":"Lysa","priority":"medium","status":"new","need":"Whitney @ Fygg requests:\n- Scheduling a call, send a few times to Lysa or she will block off a time on your cal\n- Support needs while they are in a transition: Should we charge? Sounds like it would be mainly SKU management, not CS. \n- Mark provided some feedback on communication and standard operation that Whitney requested and I would love to discuss before sending her way.","ref":"","due":"2026-08-26","createdAt":"2026-08-24T19:45:09.695Z","updatedAt":"2026-08-24T19:45:09.695Z","notes":[]},{"id":"rmt7nce2kzpuxq","num":8,"client":"Hug Sleep","requester":"Lysa","priority":"medium","status":"new","need":"Order status \"Not Ready\" - The team is skipping over orders in this status. How can they keep an eye on these and how can they move them into ship ready?","ref":"","due":"2026-08-26","createdAt":"2026-08-24T19:46:10.364Z","updatedAt":"2026-08-24T19:46:10.364Z","notes":[]},{"id":"rmt7ndsurm8x0a","num":9,"client":"Hug Sleep","requester":"Lysa","priority":"high","status":"new","need":"Were you able to review the report of orders tagged with 'orderediting' to see which orders haven't had reshipment created so we can have RS create reshipments for all of the remaining past orders?","ref":"","due":"","createdAt":"2026-08-24T19:47:16.179Z","updatedAt":"2026-08-24T19:47:16.179Z","notes":[]},{"id":"rmt7nex5bfugzf","num":10,"client":"Fieldy","requester":"Lysa","priority":"medium","status":"new","need":"How do I provide a quote for ONLY USPS rates to Fieldy? \nAll zones\n\nWe have a blended UniUni/USPS card","ref":"","due":"2026-08-25","createdAt":"2026-08-24T19:48:08.399Z","updatedAt":"2026-08-24T19:48:08.399Z","notes":[]},{"id":"rmt7ng5ox0njbz","num":11,"client":"Internal team","requester":"Lysa","priority":"low","status":"new","need":"Give leads the option to create new internal team members in RS or add Lysa and Mark as admins so we don't have to get you to add new team members","ref":"","due":"","createdAt":"2026-08-24T19:49:06.129Z","updatedAt":"2026-08-24T19:49:06.129Z","notes":[]},{"id":"rmt7ni2iakv37p","num":12,"client":"Internal team","requester":"Lysa","priority":"low","status":"new","need":"Address Issues: After a certain time period without a response from the client, should we cancel the order? \n\nWill the relay (new automation) sort the orders into a different queue so the team doesn't have to see them? Should we remove them from our list to follow up on?","ref":"","due":"","createdAt":"2026-08-24T19:50:35.314Z","updatedAt":"2026-08-24T19:50:35.314Z","notes":[]},{"id":"rmt7nje9rj5kj5","num":13,"client":"Internal team","requester":"Lysa","priority":"low","status":"new","need":"When using the reship option and you select the reason, after hitting 'reship' when you're done, it will erase any notes and your selection for the reason and go to \"other/exchange\" instead of what you put in.","ref":"","due":"","createdAt":"2026-08-24T19:51:37.215Z","updatedAt":"2026-08-24T19:51:37.215Z","notes":[]},{"id":"rmt7nkxkjc7nwl","num":14,"client":"Wild Pouches","requester":"Ariel","priority":"high","status":"new","need":"Fix Wild Pouch batches for Robo and correct error \" No carrier\" in batches\n\nYou were working on it 8/24, but had to step away for a meeting.","ref":"","due":"2026-08-24","createdAt":"2026-08-24T19:52:48.883Z","updatedAt":"2026-08-24T19:52:48.883Z","notes":[]},{"id":"rmt7nlqsaz8q3a","num":15,"client":"Opal & Vitamin G","requester":"Ariel","priority":"medium","status":"new","need":"Adding in RS for restocks","ref":"","due":"2026-08-28","createdAt":"2026-08-24T19:53:26.746Z","updatedAt":"2026-08-24T19:53:26.746Z","notes":[]},{"id":"rmt7nmstcqfvcw","num":16,"client":"Kinova Labs and Clarity MD","requester":"Coya","priority":"high","status":"new","need":"Fixing \"Packiyo creds\" so we can add inventory in RS","ref":"","due":"2026-08-25","createdAt":"2026-08-24T19:54:16.032Z","updatedAt":"2026-08-24T19:54:16.032Z","notes":[]}]}</script>
+<script id="rs-state" type="application/json">{"v":1,"seq":17,"items":[{"id":"rmt7mojnj7cc1a","num":1,"client":"Fygg","requester":"Lysa","priority":"critical","status":"new","need":"Fygg Nitric Oxide Mints are getting marked as fulfilled in Robo and Packiyo, but they are on backorder in Packiyo (-515). To our understanding, we do not have these in the warehouse and they are not actually being fulfilled. Customers are reporting they are not receiving these. Can we look into why they are being marked as fulfilled while they are on backorder? Is it Robo or Packiyo?","ref":"#116163, NOX-LOZ-30","due":"2026-08-25","createdAt":"2026-08-24T19:27:37.855Z","updatedAt":"2026-08-24T19:27:37.855Z","notes":[]},{"id":"rmt7mz59w30i3o","num":2,"client":"GLP-1 SOS","requester":"Lysa","priority":"medium","status":"new","need":"Date of when we turned on Passport for GLP-1 SOS","ref":"","due":"2026-08-26","createdAt":"2026-08-24T19:35:52.436Z","updatedAt":"2026-08-24T19:37:27.414Z","notes":[{"by":"Lysa","text":"They have shipments that went out with USPS as the carrier up to 7/16 with customs issues and we just want to verify that there wasn't an error and those should have used Passport as the carrier. I don't think so, but double checking.\n\nCan we add this info as a timeline history with the user attached to it in Robo when updating the carriers per client?","at":"2026-08-24T19:37:27.414Z"}]},{"id":"rmt7n2ohxvkqyu","num":3,"client":"Beauty Sleep Club","requester":"Lysa","priority":"low","status":"new","need":"Can I turn on UniUni for Beauty Sleep? Can I check the box or uncheck the box for carriers at anytime for clients?","ref":"","due":"2026-08-28","createdAt":"2026-08-24T19:38:37.317Z","updatedAt":"2026-08-24T19:38:37.317Z","notes":[]},{"id":"rmt7n3jldpdrdf","num":4,"client":"Rielle","requester":"Lysa","priority":"low","status":"new","need":"Is Robo going to have API or MCP access for clients?","ref":"","due":"2026-08-28","createdAt":"2026-08-24T19:39:17.617Z","updatedAt":"2026-08-24T19:39:17.617Z","notes":[]},{"id":"rmt7n4uhcigsjw","num":5,"client":"Kinova & Shush","requester":"Lysa","priority":"low","status":"new","need":"Can you give me an ETA on their first invoice? They have questions on shipment cost $ and it would be helpful to just get their first invoice over to them.","ref":"","due":"2026-08-26","createdAt":"2026-08-24T19:40:18.384Z","updatedAt":"2026-08-24T19:40:18.384Z","notes":[]},{"id":"rmt7n89hdvb32c","num":6,"client":"Hug Sleep","requester":"Lysa","priority":"high","status":"new","need":"Should we be disconnecting clients from Packiyo once they are fully transferred to Robo? \n\n\"Fulfilled externally\" is happening: Robo fulfills or makes an update > Marks fulfilled in Shopify > Shopify updates Packiyo > Packiyo updates Robo. Is this updating inventory twice and that is contributing to inventory being off?","ref":"","due":"2026-08-25","createdAt":"2026-08-24T19:42:57.793Z","updatedAt":"2026-08-24T19:42:57.793Z","notes":[]},{"id":"rmt7nb39buybfa","num":7,"client":"Fygg","requester":"Lysa","priority":"medium","status":"new","need":"Whitney @ Fygg requests:\n- Scheduling a call, send a few times to Lysa or she will block off a time on your cal\n- Support needs while they are in a transition: Should we charge? Sounds like it would be mainly SKU management, not CS. \n- Mark provided some feedback on communication and standard operation that Whitney requested and I would love to discuss before sending her way.","ref":"","due":"2026-08-26","createdAt":"2026-08-24T19:45:09.695Z","updatedAt":"2026-08-24T19:45:09.695Z","notes":[]},{"id":"rmt7nce2kzpuxq","num":8,"client":"Hug Sleep","requester":"Lysa","priority":"medium","status":"new","need":"Order status \"Not Ready\" - The team is skipping over orders in this status. How can they keep an eye on these and how can they move them into ship ready?","ref":"","due":"2026-08-26","createdAt":"2026-08-24T19:46:10.364Z","updatedAt":"2026-08-24T19:46:10.364Z","notes":[]},{"id":"rmt7ndsurm8x0a","num":9,"client":"Hug Sleep","requester":"Lysa","priority":"high","status":"new","need":"Were you able to review the report of orders tagged with 'orderediting' to see which orders haven't had reshipment created so we can have RS create reshipments for all of the remaining past orders?","ref":"","due":"","createdAt":"2026-08-24T19:47:16.179Z","updatedAt":"2026-08-24T19:47:16.179Z","notes":[]},{"id":"rmt7nex5bfugzf","num":10,"client":"Fieldy","requester":"Lysa","priority":"medium","status":"new","need":"How do I provide a quote for ONLY USPS rates to Fieldy? \nAll zones\n\nWe have a blended UniUni/USPS card","ref":"","due":"2026-08-25","createdAt":"2026-08-24T19:48:08.399Z","updatedAt":"2026-08-24T19:48:08.399Z","notes":[]},{"id":"rmt7ng5ox0njbz","num":11,"client":"Internal team","requester":"Lysa","priority":"low","status":"new","need":"Give leads the option to create new internal team members in RS or add Lysa and Mark as admins so we don't have to get you to add new team members","ref":"","due":"","createdAt":"2026-08-24T19:49:06.129Z","updatedAt":"2026-08-24T19:49:06.129Z","notes":[]},{"id":"rmt7ni2iakv37p","num":12,"client":"Internal team","requester":"Lysa","priority":"low","status":"new","need":"Address Issues: After a certain time period without a response from the client, should we cancel the order? \n\nWill the relay (new automation) sort the orders into a different queue so the team doesn't have to see them? Should we remove them from our list to follow up on?","ref":"","due":"","createdAt":"2026-08-24T19:50:35.314Z","updatedAt":"2026-08-24T19:50:35.314Z","notes":[]},{"id":"rmt7nje9rj5kj5","num":13,"client":"Internal team","requester":"Lysa","priority":"low","status":"new","need":"When using the reship option and you select the reason, after hitting 'reship' when you're done, it will erase any notes and your selection for the reason and go to \"other/exchange\" instead of what you put in.","ref":"","due":"","createdAt":"2026-08-24T19:51:37.215Z","updatedAt":"2026-08-24T19:51:37.215Z","notes":[]},{"id":"rmt7nkxkjc7nwl","num":14,"client":"Wild Pouches","requester":"Ariel","priority":"high","status":"new","need":"Fix Wild Pouch batches for Robo and correct error \" No carrier\" in batches\n\nYou were working on it 8/24, but had to step away for a meeting.","ref":"","due":"2026-08-24","createdAt":"2026-08-24T19:52:48.883Z","updatedAt":"2026-08-24T19:52:48.883Z","notes":[]},{"id":"rmt7nlqsaz8q3a","num":15,"client":"Opal & Vitamin G","requester":"Ariel","priority":"medium","status":"new","need":"Adding in RS for restocks","ref":"","due":"2026-08-28","createdAt":"2026-08-24T19:53:26.746Z","updatedAt":"2026-08-24T19:53:26.746Z","notes":[]},{"id":"rmt7nmstcqfvcw","num":16,"client":"Kinova Labs and Clarity MD","requester":"Coya","priority":"high","status":"new","need":"Fixing \"Packiyo creds\" so we can add inventory in RS","ref":"","due":"2026-08-25","createdAt":"2026-08-24T19:54:16.032Z","updatedAt":"2026-08-24T19:54:16.032Z","notes":[]}]}</script>
 <script id="rs-js">
 (function(){
 "use strict";
@@ -265,7 +268,7 @@ var FONTS = "https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&f
 var CLIENTS = [
   "Beauty Sleep Club",
   "Bioroot Labs",
-  "Botanē",
+  "Botane",
   "CRWN",
   "Clarity MD",
   "Clean Supplement USA",
@@ -482,7 +485,7 @@ function commit(mutator, okMsg){
     setSaving(false);
     var code = (err && err.code) || "upstream_error";
     if(code === "conflict"){
-      toast("Someone saved first — loading their version now.","warn");
+      toast("Someone saved first - loading their version now.","warn");
       return;
     }
     state = JSON.parse(snapshot);
@@ -580,7 +583,7 @@ function shellHTML(){
     '</main>' +
     '<div class="wrap"><p class="foot">' +
       '<span>Every change saves to this page for everyone with the link.</span>' +
-      '<span class="saving" id="saving"><span class="spin"></span>Saving…</span>' +
+      '<span class="saving" id="saving"><span class="spin"></span>Saving...</span>' +
     '</p></div>' +
     '<div class="toast" id="toast" role="status" aria-live="polite"></div>';
 }
@@ -594,10 +597,10 @@ function header(){
     '<div class="top-right">' +
       '<span class="who"><label class="eyebrow" for="whoami">You are</label>' +
         '<select id="whoami" aria-label="Who are you?">' +
-          '<option value="">Choose…</option>' +
+          '<option value="">Choose...</option>' +
           TEAM.map(function(t){ return '<option value="' + esc(t) + '"' + (prefs.name===t?" selected":"") + '>' + esc(t) + '</option>'; }).join("") +
           (custom ? '<option value="' + name + '" selected>' + name + '</option>' : '') +
-          '<option value="__other">Someone else…</option>' +
+          '<option value="__other">Someone else...</option>' +
         '</select>' +
         '<input id="whoami-other" class="inp" placeholder="Your name" autocomplete="off" aria-label="Your name" hidden>' +
       '</span>' +
@@ -634,13 +637,18 @@ function statsHTML(){
   '</div></div>';
 }
 function bannerHTML(){
+  var out = "";
   if(readOnly){
-    return '<div class="wrap"><div class="banner"><b>View only.</b>&nbsp;You can read the board but not change it. Ask whoever shared the link to give you edit access.</div></div>';
+    out += '<div class="wrap"><div class="banner"><b>View only.</b>&nbsp;You can read the board but not change it. Ask whoever shared the link to give you edit access.</div></div>';
   }
   if(localOnly){
-    return '<div class="wrap"><div class="banner"><b>Not saving.</b>&nbsp;This view can’t write to the shared board — open the board from its own link to submit and save.</div></div>';
+    out += '<div class="wrap"><div class="banner"><b>Not saving.</b>&nbsp;This view can\'t write to the shared board - open the board from its own link to submit and save.</div></div>';
   }
-  return "";
+  if(previewOn){
+    out += '<div class="wrap"><div class="banner"><b>Just an example.</b>&nbsp;These rows aren\'t real requests and nothing here is saved.' +
+      '<span class="spacer"></span><button class="btn ghost sm" data-act="exit-preview">Back to your requests</button></div></div>';
+  }
+  return out;
 }
 function controlsHTML(){
   var cs = clients();
@@ -701,7 +709,7 @@ function emptyHTML(){
   var total = state.items.length;
   if(total === 0 && !previewOn){
     return '<div class="empty"><h2>Nothing in the queue yet</h2>' +
-      '<p>When someone on the team is waiting on Glen for something, they add it here — client, what they need, and how urgent it is. Everything lands on this board, worst first.</p>' +
+      '<p>When someone on the team is waiting on Glen for something, they add it here: client, what they need, and how urgent it is. Everything lands on this board, worst first.</p>' +
       '<button class="btn primary" data-act="tab" data-tab="submit">Add the first request</button>' +
       '<button class="btn" data-act="preview">Show me an example</button></div>';
   }
@@ -721,15 +729,15 @@ function rowHTML(it){
   var row = '<div class="grid row" role="row" tabindex="0" data-act="expand" data-id="' + esc(it.id) + '" data-p="' + esc(it.priority) + '"' +
       ' data-done="' + (isOpen(it) ? 0 : 1) + '" data-sample="' + (it.sample?1:0) + '" aria-expanded="' + open + '">' +
     '<div class="stripe"></div>' +
-    '<div class="cell c-num"><span class="num">' + (it.sample ? "—" : "#" + it.num) + '</span>' +
+    '<div class="cell c-num"><span class="num">' + (it.sample ? "-" : "#" + it.num) + '</span>' +
       (it.sample ? '<span class="tag">Example</span>' : "") + '</div>' +
     '<div class="cell c-prio"><span class="pill p-' + esc(it.priority) + '">' + prioName(it.priority) + '</span></div>' +
     '<div class="cell c-main"><div class="client">' + esc(it.client) +
       (it.ref ? '<span class="tag">' + esc(it.ref) + '</span>' : "") + '</div>' +
       '<div class="need">' + esc(it.need) + '</div></div>' +
     '<div class="cell c-who"><span class="who-cell">' + esc(it.requester) + '</span></div>' +
-    '<div class="cell c-age"><span class="age ' + ageCls + '">' + (isOpen(it) ? '<b>' + age + '</b>d' : '—') + '</span></div>' +
-    '<div class="cell c-due"><span class="due' + (overdue ? " over" : "") + '">' + (it.due ? fmtDue(it.due) + (overdue ? " ⚠" : "") : "—") + '</span></div>' +
+    '<div class="cell c-age"><span class="age ' + ageCls + '">' + (isOpen(it) ? '<b>' + age + '</b>d' : '-') + '</span></div>' +
+    '<div class="cell c-due"><span class="due' + (overdue ? " over" : "") + '">' + (it.due ? fmtDue(it.due) + (overdue ? " ⚠" : "") : "-") + '</span></div>' +
     '<div class="cell c-status"><span class="pill s-' + esc(it.status) + '">' + statusName(it.status) + '</span>' +
       (notes ? '<span class="notecount">' + notes + ' note' + (notes===1?"":"s") + '</span>' : "") +
       '</div>' +
@@ -791,7 +799,7 @@ function detailHTML(it){
               '<button class="btn sm danger" data-act="del-yes" data-id="' + esc(it.id) + '">Yes, delete</button>' +
               '<button class="btn ghost sm" data-act="del-no" data-id="' + esc(it.id) + '">Keep it</button>'
             : '<button class="btn ghost sm danger" data-act="del" data-id="' + esc(it.id) + '">Delete</button>')
-        : '<span style="font-size:12.5px;color:var(--ink-3)">' + (it.sample ? "Example row — not saved to the board." : "View only — you can’t change this request.") + '</span>') +
+        : '<span style="font-size:12.5px;color:var(--ink-3)">' + (it.sample ? "Example row - not saved to the board." : "View only - you can't change this request.") + '</span>') +
     '</div>' +
   '</div>';
 }
@@ -811,23 +819,23 @@ function formHTML(){
     '<div class="form-grid">' +
       '<div><label class="lab" for="f-name">Your name</label>' +
         '<select class="inp" id="f-name">' +
-          '<option value="">Who is asking?…</option>' +
+          '<option value="">Who is asking?...</option>' +
           TEAM.map(function(t){ return '<option value="' + esc(t) + '"' + (who===t?" selected":"") + '>' + esc(t) + '</option>'; }).join("") +
-          '<option value="__other"' + (otherName?" selected":"") + '>Someone else…</option>' +
+          '<option value="__other"' + (otherName?" selected":"") + '>Someone else...</option>' +
         '</select>' +
         '<input class="inp" id="f-name-other" placeholder="Your name" autocomplete="off" style="margin-top:8px"' +
           (otherName ? ' value="' + esc(who) + '"' : ' hidden') + '>' +
         '<p class="err" id="e-name">Pick your name so Glen knows who to answer.</p></div>' +
       '<div><label class="lab" for="f-client-in">Client</label>' +
         '<select class="inp" id="f-client-in">' +
-          '<option value="">Choose a client…</option>' +
+          '<option value="">Choose a client...</option>' +
           CLIENTS.map(function(c){ return '<option value="' + esc(c) + '"' + (d.client===c?" selected":"") + '>' + esc(c) + '</option>'; }).join("") +
-          '<option value="__other"' + (otherClient?" selected":"") + '>Another client…</option>' +
+          '<option value="__other"' + (otherClient?" selected":"") + '>Another client...</option>' +
         '</select>' +
         '<input class="inp" id="f-client-other" placeholder="Client name" autocomplete="off" style="margin-top:8px"' +
           (otherClient ? ' value="' + esc(d.client||"") + '"' : ' hidden') + '>' +
         '<p class="err" id="e-client">Pick the client this is for.</p></div>' +
-      '<div class="f-full"><label class="lab" for="f-need">What you need <span>or what you’re waiting on</span></label>' +
+      '<div class="f-full"><label class="lab" for="f-need">What you need <span>or what you\'re waiting on</span></label>' +
         '<textarea class="inp" id="f-need" rows="4" placeholder="Be specific: what is stuck, which orders or SKUs, what you already tried">' + esc(d.need||"") + '</textarea>' +
         '<p class="err" id="e-need">Describe what you need from Glen.</p></div>' +
       '<div class="f-full"><label class="lab">Priority</label>' +
@@ -839,12 +847,12 @@ function formHTML(){
         }).join("") + '</div>' +
         '<p class="err" id="e-prio">Pick a priority so Glen can order the queue.</p></div>' +
       '<div><label class="lab" for="f-ref">Order or ref # <span>optional</span></label>' +
-        '<input class="inp" id="f-ref" value="' + esc(d.ref||"") + '" placeholder="SO-12345, ASN, SKU…" autocomplete="off"></div>' +
+        '<input class="inp" id="f-ref" value="' + esc(d.ref||"") + '" placeholder="SO-12345, ASN, SKU..." autocomplete="off"></div>' +
       '<div><label class="lab" for="f-due">Needed by <span>optional</span></label>' +
         '<input class="inp" id="f-due" type="date" value="' + esc(d.due||"") + '"></div>' +
     '</div>' +
     '<div class="form-foot">' +
-      '<span class="hint">Everyone with the link sees this the moment you send it.</span>' +
+      '<span class="hint">The second you hit send, it lands at the top of Glen\'s queue, sorted by urgency - nothing gets lost in DMs.</span>' +
       '<button type="button" class="btn" data-act="cancel-form">Cancel</button>' +
       '<button type="submit" class="btn primary" data-act="submit">Send to the board</button>' +
     '</div>' +
@@ -901,6 +909,7 @@ function onClick(e){
     savePrefs(); renderAll(); return;
   }
   if(act === "preview"){ previewOn = true; renderAll(); return; }
+  if(act === "exit-preview"){ previewOn = false; renderAll(); return; }
   if(act === "clearfilters"){ prefs.q = ""; prefs.client = ""; prefs.prio = ""; prefs.view = "open"; savePrefs(); renderAll(); return; }
   if(act === "csv"){ exportCsv(); return; }
   if(act === "cancel-form"){ prefs.draft = {}; savePrefs(); prefs.tab = "queue"; renderAll(); return; }
@@ -1030,7 +1039,7 @@ function setStatus(id, next){
     if(!t) return;
     t.status = next;
     t.updatedAt = new Date().toISOString();
-  }, next === "done" ? "Marked resolved." : "Status updated to “" + statusName(next) + "”.");
+  }, next === "done" ? "Marked resolved." : "Status updated to '" + statusName(next) + "'.");
 }
 function saveNote(id){
   var box = byId("note-" + id);
@@ -1111,7 +1120,7 @@ function exportCsv(){
   var csv = lines.join("\r\n");
   var n = rows.length;
   function done(){
-    toast(n + " request" + (n===1?"":"s") + " copied — paste into Excel or Sheets.");
+    toast(n + " request" + (n===1?"":"s") + " copied - paste into Excel or Sheets.");
   }
   function fallback(){
     var ta = document.createElement("textarea");
@@ -1125,7 +1134,7 @@ function exportCsv(){
     try{ ok = document.execCommand("copy"); }catch(e){}
     document.body.removeChild(ta);
     if(ok) done();
-    else toast("Couldn’t copy from this view. Try selecting the rows by hand.","warn");
+    else toast("Couldn't copy from this view. Try selecting the rows by hand.","warn");
   }
   if(navigator.clipboard && navigator.clipboard.writeText){
     navigator.clipboard.writeText(csv).then(done, fallback);
