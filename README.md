@@ -1,7 +1,7 @@
-# RoboShip Request Board
+# Glen's Mailbox
 
-A shared board where the team logs what they're waiting on from Glen in RoboShip (our WMS),
-so nothing lives in scattered DMs. Submissions land in one queue, sorted worst-first.
+Every RoboShip (our WMS) issue that needs Glen's hands, in one place — so nothing lives in
+scattered DMs. Submissions land in one queue, sorted worst-first.
 
 **Live board:** https://teamrobo.help
 
