@@ -3,7 +3,7 @@
 A shared board where the team logs what they're waiting on from Glen in RoboShip (our WMS),
 so nothing lives in scattered DMs. Submissions land in one queue, sorted worst-first.
 
-**Live board:** https://claude.ai/code/artifact/2542a3a2-ad9f-418d-bfc6-70ece595706e
+**Live board:** https://teamrobo.help
 
 ## What it does
 
@@ -30,7 +30,8 @@ critical. A past "needed by" date flags as overdue.
 
 ## Rosters
 
-`index.html` holds two lists near the top of the script, edit them there to change the options:
+`public/index.html` holds two lists near the top of the script, edit them there to change
+the options:
 
 - `TEAM` — Ariel, Coya, Shay, Mylene, Lysa, Mark, Jentsyn
 - `CLIENTS` — the 30 RoboShip clients: Beauty Sleep Club, Bioroot Labs, Botane, CRWN,
@@ -53,41 +54,47 @@ can be embedded properly instead.
 
 ## How it's built
 
-`index.html` is the whole thing — one self-contained page, no server and no database.
-It runs as a Claude Artifact using the `artifact` capability: the page stores its data as
-JSON inside itself, and each submission or edit publishes a new version of the page, which
-every open browser reloads to. `artifact` is the only capability it declares — deliberately:
-an artifact that offers file downloads cannot be shared with "anyone with the link", so the
-CSV export copies to the clipboard instead of saving a file. Paste it straight into Excel or
-Sheets.
+This is a self-contained Cloudflare Worker, deployed straight from this repo — no claude.ai
+involvement at all. Three files:
 
-Everyone who writes to the board needs **edit access** to the artifact. Viewers with
-read-only access see the queue but get a "View only" banner instead of the write controls.
+- **`public/index.html`** — the whole UI: markup, styling, and client-side JS in one file.
+- **`src/index.js`** — the Worker. Serves `public/index.html` (and its assets) for normal
+  page loads, and handles `/api/state` for reading and saving the board's data.
+- **`wrangler.jsonc`** — Worker config: points at `src/index.js`, wires up the static assets
+  directory, and binds the KV namespace the data lives in.
+
+**Data model:** one JSON blob (`{v, seq, items: [...]}`) stored under a KV key, plus a
+revision counter. The page fetches it on load (`GET /api/state`), and every change (a new
+request, a note, a status flip, a delete) sends the whole updated blob back
+(`POST /api/state`) along with the revision it started from. If someone else saved in the
+meantime, the server rejects the write with a 409 and hands back the current data; the page
+then shows a toast and refreshes to the latest version rather than silently overwriting it.
 
 There are no native `alert`/`confirm`/`prompt` dialogs anywhere — sandboxed frames often
-block them — so deletes use a two-step inline confirm and identity is a picker in the header.
+block them — so deletes use a two-step inline confirm and identity is a picker in the header
+kept in `localStorage`, not a real login. Anyone who can load the page can also write to it;
+there's no authentication layer.
 
-Do not add the `downloads` capability back without checking the sharing consequence above.
+CSV export copies to the clipboard rather than downloading a file (kept from the original
+design — works everywhere, no download-permission fuss).
 
-### Redeploying
+**Cost:** everything here runs on Cloudflare's free tier (Workers: 100k requests/day, KV:
+thousands of reads/writes a day). A small internal team board doesn't come close to those
+limits.
 
-Republishing `index.html` from this repo **replaces the live page, including its data**.
-The board is in use, so its live state must be merged before any publish: read the published
-artifact, copy the JSON out of its `<script id="rs-state">` tag into this file's matching tag,
-then publish. The publish tool refuses and hands over the live source when someone has saved
-since your last publish — merge from that, never overwrite it.
+### Deploying
 
-The committed `rs-state` in this file is therefore a snapshot, not the source of truth; the
-live artifact is.
+Cloudflare's Workers Builds is connected to this repo and auto-deploys `main` on every push
+— nothing manual needed. The KV namespace is provisioned once in the Cloudflare dashboard and
+referenced by ID in `wrangler.jsonc`; deploys never touch the data stored there, so shipping a
+code change is completely decoupled from the board's actual requests.
 
 ### Local development
 
-The file is published as a fragment (no `<html>`/`<head>`/`<body>` — those get added at
-publish time), so to open it directly in a browser, wrap it:
-
 ```sh
-{ echo '<!doctype html><html><head><meta charset="utf-8"></head><body>'; cat index.html; echo '</body></html>'; } > /tmp/preview.html
+npx wrangler dev
 ```
 
-Saving is inert outside the artifact viewer — the page says so with a "Not saving" banner
-rather than silently dropping changes.
+Runs the Worker locally with a local (in-memory) copy of KV — safe to poke at without
+touching the real board's data. First load seeds the local KV from the `SEED` constant at
+the top of `src/index.js`.

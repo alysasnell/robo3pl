@@ -1,0 +1,12 @@
+{
+  "name": "robo3pl",
+  "compatibility_date": "2026-08-26",
+  "main": "src/index.js",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS"
+  },
+  "kv_namespaces": [
+    { "binding": "BOARD_KV", "id": "9ae2d7cd34c14d7dace70f77d5c601c0" }
+  ]
+}
