@@ -365,7 +365,7 @@ var loaded = false;
 var loadError = false;
 var prefs = loadPrefs();
 if(!prefs.sort){prefs.sort="priority";prefs.dir="nat";}
-if(!prefs.tab) prefs.tab = "queue";
+prefs.tab = "queue";
 if(!prefs.view) prefs.view = "open";
 var expanded = {};
 var previewOn = false;
