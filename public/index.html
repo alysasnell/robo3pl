@@ -1,6 +1,11 @@
-<title>RoboShip Request Board</title>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Glen's Mailbox</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
-<style id="rs-css">
+<style>
 :root{
   --brand:#3d7bfb; --brand-eye:#131c2e;
   --ground:#edf0f5; --surface:#ffffff; --surface-2:#f5f7fa; --surface-3:#e6eaf1;
@@ -58,6 +63,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .mark{flex:none;color:var(--brand);display:block}
 .wordmark{display:block;font-family:var(--display);font-size:12.5px;font-weight:700;letter-spacing:.01em;color:var(--brand);line-height:1;margin-bottom:2px}
 .brand h1{font-size:clamp(17px,2.2vw,20px);font-weight:700;line-height:1.15}
+.tagline{margin:3px 0 0;font-size:12.5px;color:var(--ink-2);max-width:46ch}
 .top-right{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .who{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink-2)}
 .who select{padding:6px 9px;font-size:13px}
@@ -255,25 +261,17 @@ label.lab span{color:var(--ink-3);text-transform:none;letter-spacing:0;font-fami
   .panel{padding:17px}
 }
 </style>
-
+</head>
+<body>
 <div id="app"></div>
-<script id="rs-state" type="application/json">{"v": 1, "seq": 18, "items": [{"id": "rmt7mojnj7cc1a", "num": 1, "client": "Fygg", "requester": "Lysa", "priority": "critical", "status": "new", "need": "Fygg Nitric Oxide Mints are getting marked as fulfilled in Robo and Packiyo, but they are on backorder in Packiyo (-515). To our understanding, we do not have these in the warehouse and they are not actually being fulfilled. Customers are reporting they are not receiving these. Can we look into why they are being marked as fulfilled while they are on backorder? Is it Robo or Packiyo?", "ref": "#116163, NOX-LOZ-30", "due": "2026-08-25", "createdAt": "2026-08-24T19:27:37.855Z", "updatedAt": "2026-08-24T19:27:37.855Z", "notes": []}, {"id": "rmt7mz59w30i3o", "num": 2, "client": "GLP-1 SOS", "requester": "Lysa", "priority": "medium", "status": "new", "need": "Date of when we turned on Passport for GLP-1 SOS", "ref": "", "due": "2026-08-26", "createdAt": "2026-08-24T19:35:52.436Z", "updatedAt": "2026-08-24T19:37:27.414Z", "notes": [{"by": "Lysa", "text": "They have shipments that went out with USPS as the carrier up to 7/16 with customs issues and we just want to verify that there wasn't an error and those should have used Passport as the carrier. I don't think so, but double checking.\n\nCan we add this info as a timeline history with the user attached to it in Robo when updating the carriers per client?", "at": "2026-08-24T19:37:27.414Z"}]}, {"id": "rmt7n2ohxvkqyu", "num": 3, "client": "Beauty Sleep Club", "requester": "Lysa", "priority": "low", "status": "new", "need": "Can I turn on UniUni for Beauty Sleep? Can I check the box or uncheck the box for carriers at anytime for clients?", "ref": "", "due": "2026-08-28", "createdAt": "2026-08-24T19:38:37.317Z", "updatedAt": "2026-08-24T19:38:37.317Z", "notes": []}, {"id": "rmt7n3jldpdrdf", "num": 4, "client": "Rielle", "requester": "Lysa", "priority": "low", "status": "new", "need": "Is Robo going to have API or MCP access for clients?", "ref": "", "due": "2026-08-28", "createdAt": "2026-08-24T19:39:17.617Z", "updatedAt": "2026-08-24T19:39:17.617Z", "notes": []}, {"id": "rmt7n4uhcigsjw", "num": 5, "client": "Kinova & Shush", "requester": "Lysa", "priority": "low", "status": "new", "need": "Can you give me an ETA on their first invoice? They have questions on shipment cost $ and it would be helpful to just get their first invoice over to them.", "ref": "", "due": "2026-08-26", "createdAt": "2026-08-24T19:40:18.384Z", "updatedAt": "2026-08-24T19:40:18.384Z", "notes": []}, {"id": "rmt7n89hdvb32c", "num": 6, "client": "Hug Sleep", "requester": "Lysa", "priority": "high", "status": "new", "need": "Should we be disconnecting clients from Packiyo once they are fully transferred to Robo?\n\n\"Fulfilled externally\" is happening: Robo fulfills or makes an update > Marks fulfilled in Shopify > Shopify updates Packiyo > Packiyo updates Robo. Is this updating inventory twice and that is contributing to inventory being off?", "ref": "", "due": "2026-08-25", "createdAt": "2026-08-24T19:42:57.793Z", "updatedAt": "2026-08-24T19:42:57.793Z", "notes": []}, {"id": "rmt7nb39buybfa", "num": 7, "client": "Fygg", "requester": "Lysa", "priority": "medium", "status": "new", "need": "Whitney @ Fygg requests:\n- Scheduling a call, send a few times to Lysa or she will block off a time on your cal\n- Support needs while they are in a transition: Should we charge? Sounds like it would be mainly SKU management, not CS.\n- Mark provided some feedback on communication and standard operation that Whitney requested and I would love to discuss before sending her way.", "ref": "", "due": "2026-08-26", "createdAt": "2026-08-24T19:45:09.695Z", "updatedAt": "2026-08-24T19:45:09.695Z", "notes": []}, {"id": "rmt7nce2kzpuxq", "num": 8, "client": "Hug Sleep", "requester": "Lysa", "priority": "medium", "status": "new", "need": "Order status \"Not Ready\" - The team is skipping over orders in this status. How can they keep an eye on these and how can they move them into ship ready?", "ref": "", "due": "2026-08-26", "createdAt": "2026-08-24T19:46:10.364Z", "updatedAt": "2026-08-24T19:46:10.364Z", "notes": []}, {"id": "rmt7ndsurm8x0a", "num": 9, "client": "Hug Sleep", "requester": "Lysa", "priority": "high", "status": "new", "need": "Were you able to review the report of orders tagged with 'orderediting' to see which orders haven't had reshipment created so we can have RS create reshipments for all of the remaining past orders?", "ref": "", "due": "", "createdAt": "2026-08-24T19:47:16.179Z", "updatedAt": "2026-08-24T19:47:16.179Z", "notes": []}, {"id": "rmt7nex5bfugzf", "num": 10, "client": "Fieldy", "requester": "Lysa", "priority": "medium", "status": "new", "need": "How do I provide a quote for ONLY USPS rates to Fieldy?\nAll zones\n\nWe have a blended UniUni/USPS card", "ref": "", "due": "2026-08-25", "createdAt": "2026-08-24T19:48:08.399Z", "updatedAt": "2026-08-24T19:48:08.399Z", "notes": []}, {"id": "rmt7ng5ox0njbz", "num": 11, "client": "Internal team", "requester": "Lysa", "priority": "low", "status": "new", "need": "Give leads the option to create new internal team members in RS or add Lysa and Mark as admins so we don't have to get you to add new team members", "ref": "", "due": "", "createdAt": "2026-08-24T19:49:06.129Z", "updatedAt": "2026-08-24T19:49:06.129Z", "notes": []}, {"id": "rmt7ni2iakv37p", "num": 12, "client": "Internal team", "requester": "Lysa", "priority": "low", "status": "new", "need": "Address Issues: After a certain time period without a response from the client, should we cancel the order?\n\nWill the relay (new automation) sort the orders into a different queue so the team doesn't have to see them? Should we remove them from our list to follow up on?", "ref": "", "due": "", "createdAt": "2026-08-24T19:50:35.314Z", "updatedAt": "2026-08-24T19:50:35.314Z", "notes": []}, {"id": "rmt7nje9rj5kj5", "num": 13, "client": "Internal team", "requester": "Lysa", "priority": "low", "status": "new", "need": "When using the reship option and you select the reason, after hitting 'reship' when you're done, it will erase any notes and your selection for the reason and go to \"other/exchange\" instead of what you put in.", "ref": "", "due": "", "createdAt": "2026-08-24T19:51:37.215Z", "updatedAt": "2026-08-24T19:51:37.215Z", "notes": []}, {"id": "rmt7nkxkjc7nwl", "num": 14, "client": "Wild Pouches", "requester": "Ariel", "priority": "high", "status": "new", "need": "Fix Wild Pouch batches for Robo and correct error \" No carrier\" in batches\n\nYou were working on it 8/24, but had to step away for a meeting.", "ref": "", "due": "2026-08-24", "createdAt": "2026-08-24T19:52:48.883Z", "updatedAt": "2026-08-24T19:52:48.883Z", "notes": []}, {"id": "rmt7nlqsaz8q3a", "num": 15, "client": "Opal & Vitamin G", "requester": "Ariel", "priority": "medium", "status": "new", "need": "Adding in RS for restocks", "ref": "", "due": "2026-08-28", "createdAt": "2026-08-24T19:53:26.746Z", "updatedAt": "2026-08-24T19:53:26.746Z", "notes": []}, {"id": "rmt7nmstcqfvcw", "num": 16, "client": "Kinova Labs and Clarity MD", "requester": "Coya", "priority": "high", "status": "new", "need": "Fixing \"Packiyo creds\" so we can add inventory in RS", "ref": "", "due": "2026-08-25", "createdAt": "2026-08-24T19:54:16.032Z", "updatedAt": "2026-08-24T19:54:16.032Z", "notes": []}, {"id": "rmt7nr9kc70oi6", "num": 17, "client": "System Error", "requester": "Jentsyn", "priority": "critical", "status": "new", "need": "#450773 - Can't ship this order\n409 error", "ref": "#450773", "due": "2026-08-24", "createdAt": "2026-08-24T19:57:44.364Z", "updatedAt": "2026-08-24T19:57:44.364Z", "notes": []}]}</script>
-<script id="papaparse">
-/* @license
-Papa Parse
-v5.7.0
-https://github.com/mholt/PapaParse
-License: MIT
-*/
-((e,t)=>{"function"==typeof define&&define.amd?define([],t):"object"==typeof module&&"undefined"!=typeof exports?module.exports=t():e.Papa=t()})(this,function r(){var n="undefined"!=typeof self?self:"undefined"!=typeof window?window:void 0!==n?n:{};var s=!n.document&&!!n.postMessage,a=n.IS_PAPA_WORKER||!1,o={},h=0,w={};function q(e){return 65279===e.charCodeAt(0)?e.slice(1):e}function u(e){this._handle=null,this._finished=!1,this._completed=!1,this._halted=!1,this._input=null,this._baseIndex=0,this._partialLine="",this._rowCount=0,this._start=0,this._nextChunk=null,this.isFirstChunk=!0,this._completeResults={data:[],errors:[],meta:{}},function(e){var t=v(e);t.chunkSize=parseInt(t.chunkSize),e.step||e.chunk||(t.chunkSize=null);this._handle=new i(t),(this._handle.streamer=this)._config=t}.call(this,e),this.parseChunk=function(t,e){var i=parseInt(this._config.skipFirstNLines)||0;if(this.isFirstChunk&&0<i){let e=this._config.newline;e||(r=this._config.quoteChar||'"',e=this._handle.guessLineEndings(t,r)),t=[...t.split(e).slice(i)].join(e)}this.isFirstChunk&&U(this._config.beforeFirstChunk)&&void 0!==(r=this._config.beforeFirstChunk(t))&&(t=r),this.isFirstChunk=!1,this._halted=!1;var i=this._partialLine+t,r=(this._partialLine="",this._handle.parse(i,this._baseIndex,!this._finished));if(!this._handle.paused()&&!this._handle.aborted()){t=r.meta.cursor,i=(this._finished||(this._partialLine=i.substring(t-this._baseIndex),this._baseIndex=t),r&&r.data&&(this._rowCount+=r.data.length),this._finished||this._config.preview&&this._rowCount>=this._config.preview);if(a)n.postMessage({results:r,workerId:w.WORKER_ID,finished:i});else if(U(this._config.chunk)&&!e){if(this._config.chunk(r,this._handle),this._handle.paused()||this._handle.aborted())return void(this._halted=!0);this._completeResults=r=void 0}return this._config.step||this._config.chunk||(this._completeResults.data=this._completeResults.data.concat(r.data),this._completeResults.errors=this._completeResults.errors.concat(r.errors),this._completeResults.meta=r.meta),this._completed||!i||!U(this._config.complete)||r&&r.meta.aborted||(this._config.complete(this._completeResults,this._input),this._completed=!0),i||r&&r.meta.paused||this._nextChunk(),r}this._halted=!0},this._sendError=function(e){U(this._config.error)?this._config.error(e):a&&this._config.error&&n.postMessage({workerId:w.WORKER_ID,error:e,finished:!1})}}function d(e){var r;(e=e||{}).chunkSize||(e.chunkSize=w.RemoteChunkSize),u.call(this,e),this._nextChunk=s?function(){this._readChunk(),this._chunkLoaded()}:function(){this._readChunk()},this.stream=function(e){this._input=e,this._nextChunk()},this._readChunk=function(){if(this._finished)this._chunkLoaded();else{if(r=new XMLHttpRequest,this._config.withCredentials&&(r.withCredentials=this._config.withCredentials),s||(r.onload=m(this._chunkLoaded,this),r.onerror=m(this._chunkError,this)),r.ontimeout=m(this._chunkTimeout,this),r.open(this._config.downloadRequestBody?"POST":"GET",this._input,!s),this._config.downloadTimeout&&!s&&(r.timeout=this._config.downloadTimeout),this._config.downloadRequestHeaders){var e,t=this._config.downloadRequestHeaders;for(e in t)r.setRequestHeader(e,t[e])}var i;this._config.chunkSize&&(i=this._start+this._config.chunkSize-1,r.setRequestHeader("Range","bytes="+this._start+"-"+i));try{r.send(this._config.downloadRequestBody)}catch(e){this._chunkError(e.message)}s&&0===r.status&&this._chunkError()}},this._chunkLoaded=function(){4===r.readyState&&(r.status<200||400<=r.status?this._chunkError():(this._start+=this._config.chunkSize||r.responseText.length,this._finished=!this._config.chunkSize||this._start>=(e=>null!==(e=e.getResponseHeader("Content-Range"))?parseInt(e.substring(e.lastIndexOf("/")+1)):-1)(r),this.parseChunk(r.responseText)))},this._chunkError=function(e){e=r.statusText||e;this._sendError(new Error(e))},this._chunkTimeout=function(){this._chunkError("Request timed out after "+this._config.downloadTimeout+"ms")}}function l(e){(e=e||{}).chunkSize||(e.chunkSize=w.LocalChunkSize),u.call(this,e);var i,r,n="undefined"!=typeof FileReader;this.stream=function(e){this._input=e,r=e.slice||e.webkitSlice||e.mozSlice,n?((i=new FileReader).onload=m(this._chunkLoaded,this),i.onerror=m(this._chunkError,this)):i=new FileReaderSync,this._nextChunk()},this._nextChunk=function(){this._finished||this._config.preview&&!(this._rowCount<this._config.preview)||this._readChunk()},this._readChunk=function(){var e=this._input,t=(this._config.chunkSize&&(t=Math.min(this._start+this._config.chunkSize,this._input.size),e=r.call(e,this._start,t)),i.readAsText(e,this._config.encoding));n||this._chunkLoaded({target:{result:t}})},this._chunkLoaded=function(e){this._start+=this._config.chunkSize,this._finished=!this._config.chunkSize||this._start>=this._input.size,this.parseChunk(e.target.result)},this._chunkError=function(){this._sendError(i.error)}}function f(e){var i;u.call(this,e=e||{}),this.stream=function(e){return i=e,this._nextChunk()},this._nextChunk=function(){var e,t;if(!this._finished)return e=this._config.chunkSize,i=e?(t=i.substring(0,e),i.substring(e)):(t=i,""),this._finished=!i,this.parseChunk(t)}}function c(e){u.call(this,e=e||{});var t=[],i=!0,r=!1;this.pause=function(){u.prototype.pause.apply(this,arguments),this._input.pause()},this.resume=function(){u.prototype.resume.apply(this,arguments),this._input.resume()},this.stream=function(e){this._input=e,this._input.on("data",this._streamData),this._input.on("end",this._streamEnd),this._input.on("error",this._streamError)},this._checkIsFinished=function(){r&&1===t.length&&(this._finished=!0)},this._nextChunk=function(){this._checkIsFinished(),t.length?this.parseChunk(t.shift()):i=!0},this._streamData=m(function(e){try{t.push("string"==typeof e?e:e.toString(this._config.encoding)),i&&(i=!1,this._checkIsFinished(),this.parseChunk(t.shift()))}catch(e){this._streamError(e)}},this),this._streamError=m(function(e){this._streamCleanUp(),this._sendError(e)},this),this._streamEnd=m(function(){this._streamCleanUp(),r=!0,this._streamData("")},this),this._streamCleanUp=m(function(){this._input.removeListener("data",this._streamData),this._input.removeListener("end",this._streamEnd),this._input.removeListener("error",this._streamError)},this)}function i(m){var n,s,a,t,o=Math.pow(2,53),h=-o,u=/^\s*-?(\d+\.?|\.\d+|\d+\.\d+)([eE][-+]?\d+)?\s*$/,d=/^((\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z)))$/,i=this,r=0,l=0,f=!1,e=!1,c=[],p={data:[],errors:[],meta:{}};function y(e){return"greedy"===m.skipEmptyLines?""===e.join("").trim():1===e.length&&0===e[0].length}function _(){if(p&&a&&(k("Delimiter","UndetectableDelimiter","Unable to auto-detect delimiting character; defaulted to '"+w.DefaultDelimiter+"'"),a=!1),m.skipEmptyLines&&(p.data=p.data.filter(function(e){return!y(e)})),g()){if(p)if(Array.isArray(p.data[0])){for(var e=0;g()&&e<p.data.length;e++)p.data[e].forEach(t);p.data.splice(0,1)}else p.data.forEach(t);function t(e){c.push(e)}}function i(e,t){for(var i=m.header?{}:[],r=0;r<e.length;r++){var n=r,s=e[r],s=((e,t)=>(e=>(m.dynamicTypingFunction&&void 0===m.dynamicTyping[e]&&(m.dynamicTyping[e]=m.dynamicTypingFunction(e)),!0===(m.dynamicTyping[e]||m.dynamicTyping)))(e)?"true"===t||"TRUE"===t||"false"!==t&&"FALSE"!==t&&((e=>{if(u.test(e)){e=parseFloat(e);if(h<e&&e<o)return 1}})(t)?parseFloat(t):d.test(t)?new Date(t):""===t?null:t):t)(n=m.header?r>=c.length?"__parsed_extra":c[r]:n,s=m.transform?m.transform(s,n):s);"__parsed_extra"===n?(i[n]=i[n]||[],i[n].push(s)):i[n]=s}return m.header&&(r>c.length?k("FieldMismatch","TooManyFields","Too many fields: expected "+c.length+" fields but parsed "+r,l+t):r<c.length&&k("FieldMismatch","TooFewFields","Too few fields: expected "+c.length+" fields but parsed "+r,l+t)),i}var r;p&&(m.header||m.dynamicTyping||m.transform)&&(r=1,!p.data.length||Array.isArray(p.data[0])?(p.data=p.data.map(i),r=p.data.length):p.data=i(p.data,0),m.header&&p.meta&&(p.meta.fields=c),l+=r)}function g(){return m.header&&0===c.length}function k(e,t,i,r){e={type:e,code:t,message:i};void 0!==r&&(e.row=r),p.errors.push(e)}U(m.step)&&(t=m.step,m.step=function(e){p=e,g()?_():(_(),0!==p.data.length&&(r+=e.data.length,m.preview&&r>m.preview?s.abort():(p.data=p.data[0],t(p,i))))}),this.parse=function(e,t,i){var r=m.quoteChar||'"',r=(m.newline||(m.newline=this.guessLineEndings(e,r)),a=!1,m.delimiter?U(m.delimiter)&&(m.delimiter=m.delimiter(e),p.meta.delimiter=m.delimiter):((r=((e,t,i,r,n)=>{var s,a,o,h;n=n||[",","\t","|",";",w.RECORD_SEP,w.UNIT_SEP];for(var u=0;u<n.length;u++){for(var d,l=n[u],f=0,c=0,p=0,_=(o=void 0,new E({comments:r,delimiter:l,newline:t,preview:10}).parse(e)),g=0;g<_.data.length;g++)i&&y(_.data[g])?p++:(d=_.data[g].length,c+=d,void 0===o?o=d:0<d&&(f+=Math.abs(d-o),o=d));0<_.data.length&&(c/=_.data.length-p),1.99<c&&(void 0===a||f<a||f===a&&h<c)&&(a=f,s=l,h=c)}return{successful:!!(m.delimiter=s),bestDelimiter:s}})(e,m.newline,m.skipEmptyLines,m.comments,m.delimitersToGuess)).successful?m.delimiter=r.bestDelimiter:(a=!0,m.delimiter=w.DefaultDelimiter),p.meta.delimiter=m.delimiter),v(m));return r.header=g(),m.preview&&m.header&&r.preview++,n=e,s=new E(r),p=s.parse(n,t,i),_(),f?{meta:{paused:!0}}:p||{meta:{paused:!1}}},this.paused=function(){return f},this.pause=function(){f=!0,s.abort(),n=U(m.chunk)?"":n.substring(s.getCharIndex())},this.resume=function(){i.streamer._halted?(f=!1,i.streamer.parseChunk(n,!0)):setTimeout(i.resume,3)},this.aborted=function(){return e},this.abort=function(){e=!0,s.abort(),p.meta.aborted=!0,U(m.complete)&&m.complete(p),n=""},this.guessLineEndings=function(e,t){e=e.substring(0,1048576);var t=new RegExp(P(t)+"([^]*?)"+P(t),"gm"),i=(e=e.replace(t,"")).split("\r"),t=e.split("\n"),e=1<t.length&&t[0].length<i[0].length;if(1===i.length||e)return"\n";for(var r=0,n=0;n<i.length;n++)"\n"===i[n][0]&&r++;return r>=i.length/2?"\r\n":"\r"}}function P(e){return e.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")}function E(C){var S=(C=C||{}).delimiter,O=C.newline,x=C.comments,T=C.step,I=C.preview,A=C.fastMode,D=null,L=!1,F=null==C.quoteChar?'"':C.quoteChar,z=F;if(void 0!==C.escapeChar&&(z=C.escapeChar),("string"!=typeof S||-1<w.BAD_DELIMITERS.indexOf(S))&&(S=","),x===S)throw new Error("Comment character same as delimiter");!0===x?x="#":("string"!=typeof x||-1<w.BAD_DELIMITERS.indexOf(x))&&(x=!1),"\n"!==O&&"\r"!==O&&"\r\n"!==O&&(O="\n");var M=0,j=!1;this.parse=function(i,t,r){if("string"!=typeof i)throw new Error("Input must be a string");var n=i.length,e=S.length,s=O.length,a=x.length,o=U(T),h=[],u=[],d=[],l=M=0;if(!i)return b();if(A||!1!==A&&-1===i.indexOf(F)){for(var f=i.split(O),c=0;c<f.length;c++){if(d=f[c],M+=d.length,c!==f.length-1)M+=O.length;else if(r)return b();if(!x||d.substring(0,a)!==x){if(o){if(h=[],k(d.split(S)),R(),j)return b()}else k(d.split(S));if(I&&I<=c)return h=h.slice(0,I),b(!0)}}return b()}for(var p=i.indexOf(S,M),_=i.indexOf(O,M),g=new RegExp(P(z)+P(F),"g"),m=i.indexOf(F,M);;)if(i[M]===F)for(m=M,M++;;){if(-1===(m=i.indexOf(F,m+1)))return r||u.push({type:"Quotes",code:"MissingQuotes",message:"Quoted field unterminated",row:h.length,index:M}),E();if(m===n-1)return E(i.substring(M,m).replace(g,F));if(F===z&&i[m+1]===z)m++;else if(F===z||0===m||i[m-1]!==z){-1!==p&&p<m+1&&(p=i.indexOf(S,m+1));var y=w(-1===(_=-1!==_&&_<m+1?i.indexOf(O,m+1):_)?p:Math.min(p,_));if(i.substr(m+1+y,e)===S){d.push(i.substring(M,m).replace(g,F)),i[M=m+1+y+e]!==F&&(m=i.indexOf(F,M)),p=i.indexOf(S,M),_=i.indexOf(O,M);break}y=w(_);if(i.substring(m+1+y,m+1+y+s)===O){if(d.push(i.substring(M,m).replace(g,F)),v(m+1+y+s),p=i.indexOf(S,M),m=i.indexOf(F,M),o&&(R(),j))return b();if(I&&h.length>=I)return b(!0);break}u.push({type:"Quotes",code:"InvalidQuotes",message:"Trailing quote on quoted field is malformed",row:h.length,index:M}),m++}}else if(x&&0===d.length&&i.substring(M,M+a)===x){if(-1===_)return b();M=_+s,_=i.indexOf(O,M),p=i.indexOf(S,M)}else if(-1!==p&&(p<_||-1===_))d.push(i.substring(M,p)),M=p+e,p=i.indexOf(S,M);else{if(-1===_)break;if(d.push(i.substring(M,_)),v(_+s),o&&(R(),j))return b();if(I&&h.length>=I)return b(!0)}return E();function k(e){h.push(e),l=M}function w(e){var t=0;return t=-1!==e&&(e=i.substring(m+1,e))&&""===e.trim()?e.length:t}function E(e){return r||(void 0===e&&(e=i.substring(M)),d.push(e),M=n,k(d),o&&R()),b()}function v(e){M=e,k(d),d=[],_=i.indexOf(O,M)}function b(e){if(C.header&&!t&&h.length&&!L){var s=h[0],a=Object.create(null),o=new Set(s);let n=!1;for(let r=0;r<s.length;r++){let i=q(s[r]);if(a[i=U(C.transformHeader)?C.transformHeader(i,r):i]){let e,t=a[i];for(;e=i+"_"+t,t++,o.has(e);) ;o.add(e),s[r]=e,a[i]++,n=!0,(D=null===D?{}:D)[e]=i}else a[i]=1,s[r]=i;o.add(i)}n&&console.warn("Duplicate headers found and renamed."),L=!0}return{data:h,errors:u,meta:{delimiter:S,linebreak:O,aborted:j,truncated:!!e,cursor:l+(t||0),renamedHeaders:D}}}function R(){T(b()),h=[],u=[]}},this.abort=function(){j=!0},this.getCharIndex=function(){return M}}function p(e){var t=e.data,i=o[t.workerId],r=!1;if(t.error)i.userError(t.error,t.file);else if(t.results&&t.results.data){var n={abort:function(){r=!0,_(t.workerId,{data:[],errors:[],meta:{aborted:!0}})},pause:g,resume:g};if(U(i.userStep)){for(var s=0;s<t.results.data.length&&(i.userStep({data:t.results.data[s],errors:t.results.errors,meta:t.results.meta},n),!r);s++);delete t.results}else U(i.userChunk)&&(i.userChunk(t.results,n,t.file),delete t.results)}t.finished&&!r&&_(t.workerId,t.results)}function _(e,t){var i=o[e];U(i.userComplete)&&i.userComplete(t),i.terminate(),delete o[e]}function g(){throw new Error("Not implemented.")}function v(e){if("object"!=typeof e||null===e)return e;var t,i=Array.isArray(e)?[]:{};for(t in e)i[t]=v(e[t]);return i}function m(e,t){return function(){e.apply(t,arguments)}}function U(e){return"function"==typeof e}return w.parse=function(e,t){var i=(t=t||{}).dynamicTyping||!1;U(i)&&(t.dynamicTypingFunction=i,i={});if(t.dynamicTyping=i,t.transform=!!U(t.transform)&&t.transform,void 0!==t.downloadTimeout){var i=parseInt(t.downloadTimeout);if(isNaN(i))throw new Error("Config downloadTimeout value ("+t.downloadTimeout+") not parsable by parseInt(val).");t.downloadTimeout=i}if(!t.worker||!w.WORKERS_SUPPORTED)return i=null,w.NODE_STREAM_INPUT,"string"==typeof e?(e=q(e),i=new(t.download?d:f)(t)):!0===e.readable&&U(e.read)&&U(e.on)?i=new c(t):(n.File&&e instanceof File||e instanceof Object)&&(i=new l(t)),i.stream(e);(i=(()=>{var e;return!!w.WORKERS_SUPPORTED&&(e=(()=>{var e=n.URL||n.webkitURL||null,t=r.toString();return w.BLOB_URL||(w.BLOB_URL=e.createObjectURL(new Blob(["var global = (function() { if (typeof self !== 'undefined') { return self; } if (typeof window !== 'undefined') { return window; } if (typeof global !== 'undefined') { return global; } return {}; })(); global.IS_PAPA_WORKER=true; ","(",t,")();"],{type:"text/javascript"})))})(),(e=new n.Worker(e)).onmessage=p,e.id=h++,o[e.id]=e)})()).userStep=t.step,i.userChunk=t.chunk,i.userComplete=t.complete,i.userError=t.error,t.step=U(t.step),t.chunk=U(t.chunk),t.complete=U(t.complete),t.error=U(t.error),delete t.worker,i.postMessage({input:e,config:t,workerId:i.id})},w.unparse=function(e,t){var s=!1,g=!0,m=",",y="\r\n",a='"',o=a+a,i=!1,r=null,h=!1,u=((()=>{if("object"==typeof t){if("string"!=typeof t.delimiter||w.BAD_DELIMITERS.filter(function(e){return-1!==t.delimiter.indexOf(e)}).length||(m=t.delimiter),"boolean"!=typeof t.quotes&&"function"!=typeof t.quotes&&!Array.isArray(t.quotes)||(s=t.quotes),"boolean"!=typeof t.skipEmptyLines&&"string"!=typeof t.skipEmptyLines||(i=t.skipEmptyLines),"string"==typeof t.newline&&(y=t.newline),"string"==typeof t.quoteChar&&(a=t.quoteChar,o=a+a),"boolean"==typeof t.header&&(g=t.header),Array.isArray(t.columns)){if(0===t.columns.length)throw new Error("Option columns is empty");r=t.columns}void 0!==t.escapeChar&&(o=t.escapeChar+a),t.escapeFormulae instanceof RegExp?h=t.escapeFormulae:"boolean"==typeof t.escapeFormulae&&t.escapeFormulae&&(h=/^[=+\-@\t\r].*$/)}})(),new RegExp(P(a),"g"));"string"==typeof e&&(e=JSON.parse(e));if(Array.isArray(e)){if(!e.length||Array.isArray(e[0]))return n(null,e,i);if("object"==typeof e[0])return n(r||Object.keys(e[0]),e,i)}else if("object"==typeof e)return"string"==typeof e.data&&(e.data=JSON.parse(e.data)),Array.isArray(e.data)&&(e.fields||(e.fields=e.meta&&e.meta.fields||r),e.fields||(e.fields=Array.isArray(e.data[0])?e.fields:"object"==typeof e.data[0]?Object.keys(e.data[0]):[]),Array.isArray(e.data[0])||"object"==typeof e.data[0]||(e.data=[e.data])),n(e.fields||[],e.data||[],i);throw new Error("Unable to serialize unrecognized input");function n(e,t,i){var r="",n=("string"==typeof e&&(e=JSON.parse(e)),"string"==typeof t&&(t=JSON.parse(t)),Array.isArray(e)&&0<e.length),s=!Array.isArray(t[0]);if(n&&g){for(var a=0;a<e.length;a++)0<a&&(r+=m),r+=k(e[a],a);0<t.length&&(r+=y)}for(var o=0;o<t.length;o++){var h=(n?e:t[o]).length,u=!1,d=n?0===Object.keys(t[o]).length:0===t[o].length;if(i&&!n&&(u="greedy"===i?""===t[o].join("").trim():1===t[o].length&&0===t[o][0].length),"greedy"===i&&n){for(var l=[],f=0;f<h;f++){var c=s?e[f]:f;l.push(t[o][c])}u=""===l.join("").trim()}if(!u){for(var p=0;p<h;p++){0<p&&!d&&(r+=m);var _=n&&s?e[p]:p;r+=k(t[o][_],p)}o<t.length-1&&(!i||0<h&&!d)&&(r+=y)}}return r}function k(e,t){var i,r,n;return null==e?"":e.constructor===Date?isNaN(e.getTime())?"":e.toISOString():(n=!1,h&&"string"==typeof e&&h.test(e)&&(e="'"+e,n=!0),r=(i=e.toString()).replace(u,o),(n=n||!0===s||"function"==typeof s&&s(e,t)||Array.isArray(s)&&s[t]||((e,t)=>{for(var i=0;i<t.length;i++)if(-1<e.indexOf(t[i]))return!0;return!1})(r,w.BAD_DELIMITERS)||-1<r.indexOf(m)||-1<i.indexOf(a)||" "===r.charAt(0)||" "===r.charAt(r.length-1))?a+r+a:r)}},w.RECORD_SEP=String.fromCharCode(30),w.UNIT_SEP=String.fromCharCode(31),w.BYTE_ORDER_MARK="﻿",w.BAD_DELIMITERS=["\r","\n",'"',w.BYTE_ORDER_MARK],w.WORKERS_SUPPORTED=!s&&!!n.Worker,w.NODE_STREAM_INPUT=1,w.LocalChunkSize=10485760,w.RemoteChunkSize=5242880,w.DefaultDelimiter=",",w.Parser=E,w.ParserHandle=i,w.NetworkStreamer=d,w.FileStreamer=l,w.StringStreamer=f,w.ReadableStreamStreamer=c,a&&(n.onmessage=function(e){e=e.data;void 0===w.WORKER_ID&&e&&(w.WORKER_ID=e.workerId);"string"==typeof e.input?n.postMessage({workerId:w.WORKER_ID,results:w.parse(e.input,e.config),finished:!0}):(n.File&&e.input instanceof File||e.input instanceof Object)&&(e=w.parse(e.input,e.config))&&n.postMessage({workerId:w.WORKER_ID,results:e,finished:!0})}),(d.prototype=Object.create(u.prototype)).constructor=d,(l.prototype=Object.create(u.prototype)).constructor=l,(f.prototype=Object.create(f.prototype)).constructor=f,(c.prototype=Object.create(u.prototype)).constructor=c,w});
-</script>
-<script id="rs-js">
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.7.0/papaparse.min.js"></script>
+<script>
+(function(){
+"use strict";
 (function(){
 "use strict";
 
 /* ---------------- constants ---------------- */
-var TITLE = "RoboShip Request Board";
-var FONTS = "https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap";
 var CLIENTS = [
   "Beauty Sleep Club",
   "Bioroot Labs",
@@ -306,13 +304,22 @@ var CLIENTS = [
   "Vayose",
   "Wild Pouches"
 ];
-var LOGO = '<svg class="mark" width="42" height="34" viewBox="0 0 46 36" fill="none" aria-hidden="true">' +
-  '<path d="M32.5 8.2c1.6-3.2 2.7-4.9 4.4-5.8" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>' +
-  '<circle cx="37.8" cy="2.1" r="2.1" fill="currentColor"/>' +
-  '<rect x="7" y="7" width="34" height="26" rx="13" fill="currentColor"/>' +
-  '<circle cx="9.5" cy="20" r="9.6" fill="currentColor"/>' +
-  '<rect x="17.5" y="17.4" width="7.4" height="4.6" rx="2.3" fill="var(--brand-eye)"/>' +
-  '<rect x="28" y="17.4" width="7.4" height="4.6" rx="2.3" fill="var(--brand-eye)"/>' +
+var LOGO = '<svg class="mark" width="42" height="38" viewBox="0 0 100 90" fill="none" aria-hidden="true">' +
+  '<circle cx="10" cy="58" r="9" fill="#3d7bfb"/>' +
+  '<circle cx="58" cy="58" r="9" fill="#3d7bfb"/>' +
+  '<rect x="12" y="35" width="44" height="42" rx="16" fill="#3d7bfb" stroke="#131c2e" stroke-width="3"/>' +
+  '<rect x="18" y="41" width="32" height="30" rx="10" fill="#cfe0ff" stroke="#131c2e" stroke-width="2.5"/>' +
+  '<circle cx="27" cy="56" r="3.2" fill="#131c2e"/>' +
+  '<circle cx="41" cy="56" r="3.2" fill="#131c2e"/>' +
+  '<path d="M31 63 Q34 66.5 37 63" stroke="#131c2e" stroke-width="2.2" fill="none" stroke-linecap="round"/>' +
+  '<rect x="27" y="22" width="14" height="14" rx="7" fill="#3d7bfb" stroke="#131c2e" stroke-width="2.5"/>' +
+  '<line x1="34" y1="22" x2="32" y2="10" stroke="#131c2e" stroke-width="2.5" stroke-linecap="round"/>' +
+  '<circle cx="31" cy="8" r="4" fill="#3d7bfb" stroke="#131c2e" stroke-width="2.5"/>' +
+  '<rect x="50" y="5" width="42" height="26" rx="8" fill="#3d7bfb" stroke="#131c2e" stroke-width="3"/>' +
+  '<path d="M58 31 L52 40 L66 31 Z" fill="#3d7bfb" stroke="#131c2e" stroke-width="3" stroke-linejoin="round"/>' +
+  '<circle cx="62" cy="18" r="3" fill="#fff"/>' +
+  '<circle cx="71" cy="18" r="3" fill="#fff"/>' +
+  '<circle cx="80" cy="18" r="3" fill="#fff"/>' +
 '<\/svg>';
 var TEAM = ["Ariel","Coya","Shay","Mylene","Lysa","Mark","Jentsyn"];
 var PRIOS = [
@@ -353,27 +360,19 @@ var SAMPLES = [
 function iso(dayOffset){var d=new Date();d.setDate(d.getDate()+dayOffset);return d.toISOString();}
 
 /* ---------------- state ---------------- */
-var state = readState();
+var state = {v:1,seq:1,items:[]};
+var rev = 0;
+var loaded = false;
+var loadError = false;
 var prefs = loadPrefs();
 if(!prefs.sort){prefs.sort="priority";prefs.dir="nat";}
-if(!prefs.tab) prefs.tab = "queue";
+prefs.tab = "queue";
 if(!prefs.view) prefs.view = "open";
 var expanded = {};
 var previewOn = false;
-var readOnly = false;
-var localOnly = false;
-var capPromise = null;
 var noteOpen = {};
 var confirmDel = null;
 
-function readState(){
-  try{
-    var raw = document.getElementById("rs-state").textContent;
-    var s = JSON.parse(raw);
-    if(s && Array.isArray(s.items)) return s;
-  }catch(e){}
-  return {v:1,seq:1,items:[]};
-}
 function loadPrefs(){
   try{ return JSON.parse(localStorage.getItem("rs-board-prefs")||"{}") || {}; }catch(e){ return {}; }
 }
@@ -436,31 +435,6 @@ function allItems(){
   return list;
 }
 
-/* ---------------- self-publish ---------------- */
-function renderDoc(next){
-  var css = document.getElementById("rs-css").textContent;
-  var js = document.getElementById("rs-js").textContent;
-  var papa = document.getElementById("papaparse").textContent;
-  var json = JSON.stringify(next).replace(/</g,"\\u003c");
-  return '<!doctype html><html lang="en"><head><meta charset="utf-8">' +
-    '<meta name="viewport" content="width=device-width,initial-scale=1">' +
-    '<title>' + TITLE + '</title>' +
-    '<link rel="stylesheet" href="' + FONTS + '">' +
-    '<style id="rs-css">' + css + '<\/style></head><body>' +
-    '<div id="app"><\/div>' +
-    '<script id="rs-state" type="application/json">' + json + '<\/script>' +
-    '<script id="papaparse">' + papa + '<\/script>' +
-    '<script id="rs-js">' + js + '<\/script>' +
-    '</body></html>';
-}
-function cap(){
-  if(!capPromise){
-    capPromise = (window.claude && window.claude.use)
-      ? Promise.resolve(window.claude.use("artifact")).catch(function(){ return null; })
-      : Promise.resolve(null);
-  }
-  return capPromise;
-}
 function setSaving(on){
   var el = byId("saving");
   if(el) el.setAttribute("data-on", on ? "1" : "0");
@@ -477,38 +451,42 @@ function toast(msg, kind){
 }
 function commit(mutator, okMsg){
   var snapshot = JSON.stringify(state);
+  var snapshotRev = rev;
   mutator(state);
   renderAll();
   setSaving(true);
-  cap().then(function(api){
-    if(!api){
-      setSaving(false);
-      localOnly = true;
-      renderAll();
-      toast("This view can't write to the shared board, so the change stayed on your screen only.","warn");
-      return null;
+  fetch("/api/state", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({rev: snapshotRev, data: state})
+  }).then(function(res){
+    if(res.status === 409){
+      return res.json().then(function(body){
+        rev = body.rev;
+        state = body.data;
+        setSaving(false);
+        renderAll();
+        toast("Someone saved first - showing their version. Please try your change again.","warn");
+      });
     }
-    return api.publish(renderDoc(state)).then(function(){
+    if(!res.ok){
+      return res.json().catch(function(){ return {}; }).then(function(body){
+        var e = new Error("save_failed");
+        e.code = body.error || "upstream_error";
+        throw e;
+      });
+    }
+    return res.json().then(function(body){
+      rev = body.rev;
       setSaving(false);
       toast(okMsg || "Saved for the whole team.");
     });
   }).catch(function(err){
     setSaving(false);
-    var code = (err && err.code) || "upstream_error";
-    if(code === "conflict"){
-      toast("Someone saved first - loading their version now.","warn");
-      return;
-    }
     state = JSON.parse(snapshot);
-    if(code === "not_writer" || code === "not_granted" || code === "consent_required" || code === "not_declared" || code === "capability_disabled" || code === "capability_removed"){
-      readOnly = true;
-      toast("You have view-only access to this board, so nothing was saved. Ask for edit access to submit.","warn");
-    } else if(code === "rate_limited"){
-      toast("Saves are coming in too fast. Wait a few seconds and try again.","warn");
-    } else if(code === "too_large"){
+    var code = (err && err.code) || "network_error";
+    if(code === "too_large"){
       toast("The board is full. Delete some resolved requests, then try again.","warn");
-    } else if(code === "invalid_content" || code === "transform_error"){
-      toast("The board couldn't be saved. Reload the page and try again.","warn");
     } else {
       toast("Couldn't reach the server. Check your connection and try again.","warn");
     }
@@ -588,12 +566,15 @@ function renderAll(){
   }
 }
 function shellHTML(){
+  if(!loaded){
+    return header() + '<main class="wrap"><div class="empty"><h2>Loading the board...</h2></div></main>';
+  }
   return header() +
     '<main class="wrap">' +
       (prefs.tab === "queue" ? queueHTML() : formHTML()) +
     '</main>' +
     '<div class="wrap"><p class="foot">' +
-      '<span>Every change saves to this page for everyone with the link.</span>' +
+      '<span>Every change saves for the whole team.</span>' +
       '<span class="saving" id="saving"><span class="spin"></span>Saving...</span>' +
     '</p></div>' +
     '<div class="toast" id="toast" role="status" aria-live="polite"></div>';
@@ -604,7 +585,8 @@ function header(){
   return '<header class="top"><div class="wrap top-in">' +
     LOGO +
     '<div class="brand"><span class="wordmark">Robo3PL</span>' +
-    '<h1>RoboShip Request Board</h1></div>' +
+    '<h1>Glen\'s Mailbox</h1>' +
+    '<p class="tagline">Every RoboShip issue only Glen can fix, in one place - so nothing gets lost in DMs.</p></div>' +
     '<div class="top-right">' +
       '<span class="who"><label class="eyebrow" for="whoami">You are</label>' +
         '<select id="whoami" aria-label="Who are you?">' +
@@ -649,11 +631,9 @@ function statsHTML(){
 }
 function bannerHTML(){
   var out = "";
-  if(readOnly){
-    out += '<div class="wrap"><div class="banner"><b>View only.</b>&nbsp;You can read the board but not change it. Ask whoever shared the link to give you edit access.</div></div>';
-  }
-  if(localOnly){
-    out += '<div class="wrap"><div class="banner"><b>Not saving.</b>&nbsp;This view can\'t write to the shared board - open the board from its own link to submit and save.</div></div>';
+  if(loadError){
+    out += '<div class="wrap"><div class="banner"><b>Can\'t reach the board.</b>&nbsp;Check your connection and try again.' +
+      '<span class="spacer"></span><button class="btn ghost sm" data-act="reload">Reload</button></div></div>';
   }
   if(previewOn){
     out += '<div class="wrap"><div class="banner"><b>Just an example.</b>&nbsp;These rows aren\'t real requests and nothing here is saved.' +
@@ -758,7 +738,7 @@ function rowHTML(it){
   return row + (open ? detailHTML(it) : "");
 }
 function detailHTML(it){
-  var canEdit = !readOnly && !it.sample;
+  var canEdit = !it.sample;
   var statusOpts = STATUSES.map(function(s){
     return '<option value="' + s.k + '"' + (it.status===s.k?" selected":"") + '>' + s.n + '</option>';
   }).join("");
@@ -810,7 +790,7 @@ function detailHTML(it){
               '<button class="btn sm danger" data-act="del-yes" data-id="' + esc(it.id) + '">Yes, delete</button>' +
               '<button class="btn ghost sm" data-act="del-no" data-id="' + esc(it.id) + '">Keep it</button>'
             : '<button class="btn ghost sm danger" data-act="del" data-id="' + esc(it.id) + '">Delete</button>')
-        : '<span style="font-size:12.5px;color:var(--ink-3)">' + (it.sample ? "Example row - not saved to the board." : "View only - you can't change this request.") + '</span>') +
+        : '<span style="font-size:12.5px;color:var(--ink-3)">Example row - not saved to the board.</span>') +
     '</div>' +
   '</div>';
 }
@@ -901,6 +881,9 @@ function toggle(id){
   renderAll();
 }
 function onClick(e){
+  if(e.target && e.target.id === "f-due" && e.target.showPicker){
+    try{ e.target.showPicker(); }catch(err){}
+  }
   var el = closestAct(e.target);
   if(!el) return;
   var act = el.getAttribute("data-act");
@@ -921,6 +904,7 @@ function onClick(e){
   }
   if(act === "preview"){ previewOn = true; renderAll(); return; }
   if(act === "exit-preview"){ previewOn = false; renderAll(); return; }
+  if(act === "reload"){ location.reload(); return; }
   if(act === "clearfilters"){ prefs.q = ""; prefs.client = ""; prefs.prio = ""; prefs.view = "open"; savePrefs(); renderAll(); return; }
   if(act === "csv"){ exportCsv(); return; }
   if(act === "cancel-form"){ prefs.draft = {}; savePrefs(); prefs.tab = "queue"; renderAll(); return; }
@@ -1151,7 +1135,25 @@ function exportCsv(){
 }
 
 /* ---------------- go ---------------- */
-renderAll();
-cap();
+function boot(){
+  renderAll();
+  fetch("/api/state").then(function(res){
+    if(!res.ok) throw new Error("bad status");
+    return res.json();
+  }).then(function(body){
+    rev = body.rev;
+    state = body.data;
+    loaded = true;
+    renderAll();
+  }).catch(function(){
+    loadError = true;
+    loaded = true;
+    renderAll();
+  });
+}
+boot();
+})();
 })();
 </script>
+</body>
+</html>
