@@ -5,7 +5,7 @@ compatibility_date = "2026-08-26"
 # Created by `wrangler kv namespace create BOARD_KV` — paste the id it prints
 # below (and into [env.production] if you deploy through an environment).
 kv_namespaces = [
-  { binding = "BOARD_KV", id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID" }
+  { binding = "BOARD_KV", id = "614254e4095e4181b2c5c2c70c8eae6a" }
 ]
 
 # Uncomment once the zone for teamrobo.help is on this Cloudflare account,
