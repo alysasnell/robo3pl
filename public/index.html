@@ -113,7 +113,7 @@ select{cursor:pointer}
 /* ---------- board ---------- */
 .board{background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);overflow:hidden;margin-bottom:26px}
 .scroller{overflow-x:auto}
-.grid{display:grid;grid-template-columns:4px 76px 104px minmax(240px,2.4fr) 118px 82px 104px 132px 34px;align-items:center;min-width:920px}
+.grid{display:grid;grid-template-columns:4px 76px 104px minmax(220px,2fr) 104px 96px 82px 104px 158px 34px;align-items:center;min-width:990px}
 .head{border-bottom:1px solid var(--line);background:var(--surface-2)}
 .head .cell{padding:9px 10px}
 .head button{all:unset;cursor:pointer;font-family:var(--display);font-size:10.5px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);display:inline-flex;align-items:center;gap:4px}
@@ -149,6 +149,7 @@ select{cursor:pointer}
 .s-active{color:var(--med);background:var(--med-bg);border-color:var(--med-line)}
 .s-blocked{color:var(--high);background:var(--high-bg);border-color:var(--high-line)}
 .s-done{color:var(--ok);background:var(--ok-bg);border-color:var(--ok-line)}
+.c-status .pill{max-width:100%;overflow:hidden;text-overflow:ellipsis;display:inline-block}
 .age{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:13px;color:var(--ink-2)}
 .age b{font-weight:600;color:var(--ink)}
 .age.warn b{color:var(--high)}
@@ -257,6 +258,7 @@ label.lab span{color:var(--ink-3);text-transform:none;letter-spacing:0;font-fami
   .row .c-status{grid-column:5;grid-row:3;padding:9px 0 12px;justify-self:start;align-self:start}
   .notecount{display:inline;margin-left:6px}
   .row .c-chev{display:none}
+  .row .c-assign{display:none}
   .detail-grid{grid-template-columns:1fr;gap:16px}
   .form-grid{grid-template-columns:1fr}
   .prios{grid-template-columns:1fr 1fr}
@@ -328,6 +330,7 @@ var LOGO = '<svg class="mark" width="42" height="38" viewBox="0 0 100 90" fill="
   '<circle cx="80" cy="18" r="3" fill="#fff"/>' +
 '<\/svg>';
 var TEAM = ["Ariel","Coya","Shay","Mylene","Lysa","Mark","Jentsyn"];
+var ASSIGNEES = ["Glen"].concat(TEAM);
 var PRIOS = [
   {k:"critical",n:"Critical",hint:"Shipments stopped or client escalating"},
   {k:"high",n:"High",hint:"Blocking someone's work today"},
@@ -336,9 +339,9 @@ var PRIOS = [
 ];
 var PRIO_RANK = {critical:0,high:1,medium:2,low:3};
 var STATUSES = [
-  {k:"new",n:"Submitted",hint:"Waiting on Glen"},
-  {k:"active",n:"Glen working",hint:"Picked up"},
-  {k:"blocked",n:"Needs your reply",hint:"Glen needs info back"},
+  {k:"new",n:"Submitted",hint:"Waiting to be picked up"},
+  {k:"active",n:"In progress",hint:"Someone's on it"},
+  {k:"blocked",n:"Needs a reply",hint:"Waiting on the submitter"},
   {k:"done",n:"Resolved",hint:"Closed out"}
 ];
 var STATUS_RANK = {blocked:0,active:1,new:2,done:3};
@@ -349,6 +352,7 @@ var SORTS = [
   {k:"due",n:"Needed by"},
   {k:"client",n:"Client"},
   {k:"requester",n:"Who asked"},
+  {k:"assignee",n:"Assigned to"},
   {k:"status",n:"Status"},
   {k:"num",n:"Request #"}
 ];
@@ -395,6 +399,11 @@ function esc(s){
 function byId(id){ return document.getElementById(id); }
 function prioName(k){ for(var i=0;i<PRIOS.length;i++) if(PRIOS[i].k===k) return PRIOS[i].n; return k; }
 function statusName(k){ for(var i=0;i<STATUSES.length;i++) if(STATUSES[i].k===k) return STATUSES[i].n; return k; }
+function statusLabel(it){
+  if(it.status === "active") return it.assignee ? it.assignee : "In progress";
+  if(it.status === "blocked") return it.assignee ? ("Needs " + it.assignee) : "Needs a reply";
+  return statusName(it.status);
+}
 function isOpen(it){ return it.status !== "done"; }
 function days(fromIso){
   var t = Date.parse(fromIso);
@@ -509,6 +518,13 @@ function cmpFor(key){
     case "created":  return function(a,b){ return Date.parse(b.createdAt) - Date.parse(a.createdAt); };
     case "client":   return function(a,b){ return String(a.client).toLowerCase().localeCompare(String(b.client).toLowerCase()); };
     case "requester":return function(a,b){ return String(a.requester).toLowerCase().localeCompare(String(b.requester).toLowerCase()); };
+    case "assignee": return function(a,b){
+      var aa = a.assignee||"", bb = b.assignee||"";
+      if(!aa && !bb) return 0;
+      if(!aa) return 1;
+      if(!bb) return -1;
+      return aa.toLowerCase().localeCompare(bb.toLowerCase());
+    };
     case "status":   return function(a,b){ return STATUS_RANK[a.status] - STATUS_RANK[b.status]; };
     case "num":      return function(a,b){ return b.num - a.num; };
     case "due":      return function(a,b){
@@ -528,8 +544,12 @@ function visibleItems(){
     if(prefs.view === "done" && isOpen(it)) return false;
     if(prefs.client && it.client !== prefs.client) return false;
     if(prefs.prio && it.priority !== prefs.prio) return false;
+    if(prefs.assignee){
+      if(prefs.assignee === "__unassigned"){ if(it.assignee) return false; }
+      else if(it.assignee !== prefs.assignee) return false;
+    }
     if(q){
-      var hay = [it.client,it.requester,it.need,it.ref,("#"+it.num)].join(" ").toLowerCase();
+      var hay = [it.client,it.requester,it.assignee,it.need,it.ref,("#"+it.num)].join(" ").toLowerCase();
       if(hay.indexOf(q) === -1) return false;
     }
     return true;
@@ -548,7 +568,7 @@ function visibleItems(){
   return list;
 }
 function activeFilters(){
-  return !!((prefs.q && prefs.q.trim()) || prefs.client || prefs.prio || prefs.view !== "open");
+  return !!((prefs.q && prefs.q.trim()) || prefs.client || prefs.prio || prefs.assignee || prefs.view !== "open");
 }
 function clients(){
   var seen = {}, out = [];
@@ -660,11 +680,14 @@ function bulkBarHTML(){
   var n = ids.length;
   if(!n) return "";
   var prioOpts = '<option value="">Set priority...</option>' + PRIOS.map(function(p){ return '<option value="' + p.k + '">' + p.n + '</option>'; }).join("");
+  var assignOpts = '<option value="">Set assignee...</option><option value="__unassigned">Unassigned</option>' +
+    ASSIGNEES.map(function(a){ return '<option value="' + esc(a) + '">' + esc(a) + '</option>'; }).join("");
   return '<div class="wrap"><div class="bulkbar">' +
     '<span class="bulkcount"><b>' + n + '</b> selected</span>' +
     '<button class="btn sm" data-act="bulk-resolve">Mark resolved</button>' +
     '<button class="btn sm" data-act="bulk-reopen">Reopen</button>' +
     '<select class="inp" id="bulk-prio" aria-label="Set priority for selected requests">' + prioOpts + '</select>' +
+    '<select class="inp" id="bulk-assign" aria-label="Set assignee for selected requests">' + assignOpts + '</select>' +
     '<span class="spacer"></span>' +
     (bulkConfirmDel
       ? '<span class="delconfirm">Delete ' + n + ' request' + (n===1?"":"s") + '?</span>' +
@@ -678,6 +701,8 @@ function controlsHTML(){
   var cs = clients();
   var opts = cs.map(function(c){ return '<option value="' + esc(c) + '"' + (prefs.client===c?" selected":"") + '>' + esc(c) + '</option>'; }).join("");
   var prioOpts = PRIOS.map(function(p){ return '<option value="' + p.k + '"' + (prefs.prio===p.k?" selected":"") + '>' + p.n + '</option>'; }).join("");
+  var assigneeOpts = '<option value="__unassigned"' + (prefs.assignee==="__unassigned"?" selected":"") + '>Unassigned</option>' +
+    ASSIGNEES.map(function(a){ return '<option value="' + esc(a) + '"' + (prefs.assignee===a?" selected":"") + '>' + esc(a) + '</option>'; }).join("");
   var sortOpts = SORTS.map(function(s){ return '<option value="' + s.k + '"' + (prefs.sort===s.k?" selected":"") + '>' + s.n + '</option>'; }).join("");
   var n = visibleItems().length;
   return '<div class="wrap"><div class="controls">' +
@@ -698,6 +723,7 @@ function controlsHTML(){
   '<div class="controls filters">' +
     '<select id="f-client" aria-label="Filter by client"><option value="">All clients</option>' + opts + '</select>' +
     '<select id="f-prio" aria-label="Filter by priority"><option value="">Any priority</option>' + prioOpts + '</select>' +
+    '<select id="f-assignee" aria-label="Filter by assignee"><option value="">Anyone</option>' + assigneeOpts + '</select>' +
     '<div class="field"><label class="eyebrow" for="f-sort">Sort by</label>' +
       '<select id="f-sort">' + sortOpts + '</select>' +
       '<button class="btn ghost sm" data-act="dir" title="Reverse the order" aria-label="Reverse the order">' + (prefs.dir==="rev" ? "↑" : "↓") + '</button>' +
@@ -725,6 +751,7 @@ function headHTML(){
     h("priority","Priority","c-prio") +
     h("client","Client &amp; request","c-main") +
     h("requester","From","c-who") +
+    h("assignee","Assigned","c-assign") +
     h("waiting","Waiting","c-age") +
     h("due","Needed by","c-due") +
     h("status","Status","c-status") +
@@ -769,9 +796,10 @@ function rowHTML(it){
       (it.ref ? '<span class="tag">' + esc(it.ref) + '</span>' : "") + '</div>' +
       '<div class="need">' + esc(it.need) + '</div></div>' +
     '<div class="cell c-who"><span class="who-cell">' + esc(it.requester) + '</span></div>' +
+    '<div class="cell c-assign"><span class="who-cell">' + (it.assignee ? esc(it.assignee) : '<span style="color:var(--ink-3)">—</span>') + '</span></div>' +
     '<div class="cell c-age"><span class="age ' + ageCls + '">' + (isOpen(it) ? '<b>' + age + '</b>d' : '-') + '</span></div>' +
     '<div class="cell c-due"><span class="due' + (overdue ? " over" : "") + '">' + (it.due ? fmtDue(it.due) + (overdue ? " ⚠" : "") : "-") + '</span></div>' +
-    '<div class="cell c-status"><span class="pill s-' + esc(it.status) + '">' + statusName(it.status) + '</span>' +
+    '<div class="cell c-status"><span class="pill s-' + esc(it.status) + '">' + esc(statusLabel(it)) + '</span>' +
       (notes ? '<span class="notecount">' + notes + ' note' + (notes===1?"":"s") + '</span>' : "") +
       '</div>' +
     '<div class="cell c-chev"><svg class="chev" width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">' +
@@ -822,6 +850,11 @@ function detailHTML(it){
           '<label class="eyebrow" for="pr-' + esc(it.id) + '" style="margin-left:8px">Priority</label>' +
           '<select id="pr-' + esc(it.id) + '" data-act="reprio" data-id="' + esc(it.id) + '">' +
             PRIOS.map(function(p){ return '<option value="' + p.k + '"' + (it.priority===p.k?" selected":"") + '>' + p.n + '</option>'; }).join("") +
+          '</select>' +
+          '<label class="eyebrow" for="as-' + esc(it.id) + '" style="margin-left:8px">Assigned to</label>' +
+          '<select id="as-' + esc(it.id) + '" data-act="assign" data-id="' + esc(it.id) + '">' +
+            '<option value=""' + (!it.assignee?" selected":"") + '>Unassigned</option>' +
+            ASSIGNEES.map(function(a){ return '<option value="' + esc(a) + '"' + (it.assignee===a?" selected":"") + '>' + esc(a) + '</option>'; }).join("") +
           '</select>' +
           '<span class="spacer"></span>' +
           (isOpen(it)
@@ -947,7 +980,7 @@ function onClick(e){
   if(act === "preview"){ previewOn = true; renderAll(); return; }
   if(act === "exit-preview"){ previewOn = false; renderAll(); return; }
   if(act === "reload"){ location.reload(); return; }
-  if(act === "clearfilters"){ prefs.q = ""; prefs.client = ""; prefs.prio = ""; prefs.view = "open"; savePrefs(); renderAll(); return; }
+  if(act === "clearfilters"){ prefs.q = ""; prefs.client = ""; prefs.prio = ""; prefs.assignee = ""; prefs.view = "open"; savePrefs(); renderAll(); return; }
   if(act === "csv"){ exportCsv(); return; }
   if(act === "cancel-form"){ prefs.draft = {}; savePrefs(); prefs.tab = "queue"; renderAll(); return; }
   if(act === "note-open"){ noteOpen[id] = true; renderAll(); var t = byId("note-"+id); if(t) t.focus(); return; }
@@ -985,6 +1018,7 @@ function onChange(e){
   var act = el.getAttribute && el.getAttribute("data-act");
   if(el.id === "f-client"){ prefs.client = el.value; savePrefs(); renderAll(); return; }
   if(el.id === "f-prio"){ prefs.prio = el.value; savePrefs(); renderAll(); return; }
+  if(el.id === "f-assignee"){ prefs.assignee = el.value; savePrefs(); renderAll(); return; }
   if(el.id === "f-sort"){ prefs.sort = el.value; prefs.dir = "nat"; savePrefs(); renderAll(); return; }
   if(act === "status"){ setStatus(el.getAttribute("data-id"), el.value); return; }
   if(act === "reprio"){
@@ -995,8 +1029,20 @@ function onChange(e){
     }, "Priority updated.");
     return;
   }
+  if(act === "assign"){
+    var aid = el.getAttribute("data-id"), av = el.value;
+    commit(function(s){
+      var it = findIn(s, aid);
+      if(it){ it.assignee = av; it.updatedAt = new Date().toISOString(); }
+    }, av ? ("Assigned to " + av + ".") : "Unassigned.");
+    return;
+  }
   if(el.id === "bulk-prio"){
     if(el.value) bulkSetPriority(el.value);
+    return;
+  }
+  if(el.id === "bulk-assign"){
+    if(el.value) bulkSetAssignee(el.value === "__unassigned" ? "" : el.value);
     return;
   }
   if(el.id === "f-name" || el.id === "f-client-in"){
@@ -1113,6 +1159,16 @@ function bulkSetPriority(v){
     });
   }, "Priority updated for " + ids.length + " request" + (ids.length===1?"":"s") + ".");
 }
+function bulkSetAssignee(v){
+  var ids = Object.keys(selected);
+  if(!ids.length) return;
+  commit(function(s){
+    ids.forEach(function(id){
+      var it = findIn(s, id);
+      if(it){ it.assignee = v; it.updatedAt = new Date().toISOString(); }
+    });
+  }, (v ? ("Assigned " + ids.length + " request" + (ids.length===1?"":"s") + " to " + v + ".") : ("Unassigned " + ids.length + " request" + (ids.length===1?"":"s") + ".")));
+}
 function bulkDelete(){
   var ids = Object.keys(selected);
   if(!ids.length) return;
@@ -1183,7 +1239,7 @@ function submitForm(){
   var item = {
     id: uid(), num: state.seq || 1,
     client: data.client, requester: data.requester,
-    priority: data.priority, status: "new",
+    priority: data.priority, status: "new", assignee: "",
     need: data.need, ref: data.ref, due: data.due,
     createdAt: now, updatedAt: now, notes: []
   };
@@ -1197,12 +1253,12 @@ function submitForm(){
 function exportCsv(){
   var rows = visibleItems().filter(function(i){ return !i.sample; });
   if(!rows.length){ toast("Nothing to export in this view.","warn"); return; }
-  var head = ["Request #","Priority","Status","Client","Submitted by","What they need","Order/ref","Needed by","Submitted","Days waiting","Notes"];
+  var head = ["Request #","Priority","Status","Assigned to","Client","Submitted by","What they need","Order/ref","Needed by","Submitted","Days waiting","Notes"];
   function cell(v){ return '"' + String(v==null?"":v).replace(/"/g,'""') + '"'; }
   var lines = [head.map(cell).join(",")];
   rows.forEach(function(it){
     lines.push([
-      it.num, prioName(it.priority), statusName(it.status), it.client, it.requester,
+      it.num, prioName(it.priority), statusLabel(it), it.assignee||"", it.client, it.requester,
       it.need, it.ref, it.due, new Date(it.createdAt).toISOString().slice(0,10),
       isOpen(it) ? days(it.createdAt) : "",
       (it.notes||[]).map(function(n){ return n.by + ": " + n.text; }).join(" | ")

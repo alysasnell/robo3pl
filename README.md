@@ -21,11 +21,17 @@ scattered DMs. Submissions land in one queue, sorted worst-first.
 - Open a row to read the full request, post a note back, change status or priority,
   mark it resolved, or delete it
 - Check off multiple rows (or use the header checkbox to grab everything in view) to
-  bulk-resolve, reopen, reprioritize, or delete them in one save
+  bulk-resolve, reopen, reprioritize, reassign, or delete them in one save
 - Copy the current view as CSV to the clipboard
 
-Statuses are **Submitted** (waiting on Glen), **Glen working**, **Needs your reply**
-(he's waiting on the submitter), and **Resolved**.
+Each request can be **assigned** to Glen or a team member from the "Assigned to" picker in
+its detail view — filter or sort the queue by assignee to see what's on your plate. Once
+someone's assigned, the status pill reflects them directly ("Ariel", "Needs Mark") instead
+of a generic label, so a glance at the queue doubles as a status report.
+
+Statuses are **Submitted** (nobody's picked it up), **In progress** (shown as the
+assignee's name once one is set), **Needs a reply** (shown as "Needs {assignee}" once
+one is set), and **Resolved**.
 
 Rows age visibly: the day count turns amber at 4 days, red at 7 — or at 2 days if it's
 critical. A past "needed by" date flags as overdue.
