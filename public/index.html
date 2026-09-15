@@ -400,7 +400,7 @@ function byId(id){ return document.getElementById(id); }
 function prioName(k){ for(var i=0;i<PRIOS.length;i++) if(PRIOS[i].k===k) return PRIOS[i].n; return k; }
 function statusName(k){ for(var i=0;i<STATUSES.length;i++) if(STATUSES[i].k===k) return STATUSES[i].n; return k; }
 function statusLabel(it){
-  if(it.status === "active") return it.assignee ? it.assignee : "In progress";
+  if(it.status === "active") return it.assignee ? (it.assignee + " working") : "In progress";
   if(it.status === "blocked") return it.assignee ? ("Needs " + it.assignee) : "Needs a reply";
   return statusName(it.status);
 }
