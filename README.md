@@ -26,12 +26,12 @@ scattered DMs. Submissions land in one queue, sorted worst-first.
 
 Each request can be **assigned** to Glen or a team member from the "Assigned to" picker in
 its detail view — filter or sort the queue by assignee to see what's on your plate. Once
-someone's assigned, the status pill reflects them directly ("Ariel", "Needs Mark") instead
-of a generic label, so a glance at the queue doubles as a status report.
+someone's assigned, the status pill reflects them directly ("Ariel working", "Needs Mark")
+instead of a generic label, so a glance at the queue doubles as a status report.
 
-Statuses are **Submitted** (nobody's picked it up), **In progress** (shown as the
-assignee's name once one is set), **Needs a reply** (shown as "Needs {assignee}" once
-one is set), and **Resolved**.
+Statuses are **Submitted** (nobody's picked it up), **In progress** (shown as
+"{assignee} working" once one is set), **Needs a reply** (shown as "Needs {assignee}"
+once one is set), and **Resolved**.
 
 Rows age visibly: the day count turns amber at 4 days, red at 7 — or at 2 days if it's
 critical. A past "needed by" date flags as overdue.
