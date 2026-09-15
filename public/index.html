@@ -226,6 +226,13 @@ label.lab span{color:var(--ink-3);text-transform:none;letter-spacing:0;font-fami
 .bulkbar .bulkcount{font-size:13px;color:var(--accent-2);font-weight:600}
 .bulkbar .bulkcount b{font-family:var(--mono)}
 .bulkbar .spacer{flex:1;min-width:8px}
+.dupewarn{border:1px solid var(--high-line);background:var(--high-bg);border-radius:8px;padding:11px 13px;margin-top:8px}
+.dupewarn .dw-head{font-size:13px;color:var(--high);margin-bottom:8px}
+.dupewarn .dw-head b{font-weight:600}
+.dupewarn .dw-list{display:flex;flex-direction:column;gap:6px}
+.dupewarn .dw-item{display:block;width:100%;text-align:left;border:1px solid var(--high-line);background:var(--surface);color:var(--ink);border-radius:6px;padding:7px 10px;font-size:12.5px;cursor:pointer;font-family:var(--sans)}
+.dupewarn .dw-item:hover{background:var(--surface-2)}
+.dupewarn .dw-item b{font-family:var(--mono);color:var(--ink-3);font-weight:600;margin-right:6px}
 .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(8px);background:var(--ink);color:var(--ground);padding:10px 16px;border-radius:8px;font-size:13.5px;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:opacity .18s ease,transform .18s ease;z-index:60;max-width:min(520px,90vw);text-align:center}
 .toast[data-on="1"]{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast[data-kind="warn"]{background:var(--crit);color:#fff}
@@ -452,6 +459,53 @@ function allItems(){
   return list;
 }
 
+/* ---------------- duplicate detection ---------------- */
+var DUPE_STOPWORDS = {"the":1,"and":1,"for":1,"are":1,"that":1,"this":1,"with":1,"from":1,
+  "have":1,"has":1,"was":1,"were":1,"they":1,"them":1,"their":1,"you":1,"your":1,"can":1,
+  "will":1,"not":1,"but":1,"all":1,"any":1,"into":1,"out":1,"about":1,"when":1,"what":1,
+  "why":1,"how":1,"who":1,"its":1,"a":1,"an":1,"to":1,"of":1,"in":1,"on":1,"is":1,"be":1,
+  "we":1,"do":1,"does":1,"did":1,"got":1,"get":1,"robo":1,"order":1,"orders":1,"ship":1,
+  "shipping":1,"shipped":1,"item":1,"items":1,"please":1,"would":1,"could":1,"should":1,
+  "need":1,"needs":1,"just":1,"like":1,"also":1};
+function dupeWords(s){
+  var seen = {}, out = [];
+  String(s||"").toLowerCase().split(/[^a-z0-9]+/).forEach(function(w){
+    if(w.length > 2 && !DUPE_STOPWORDS[w] && !seen[w]){ seen[w] = 1; out.push(w); }
+  });
+  return out;
+}
+function findDuplicates(client, need, ref){
+  client = (client||"").trim();
+  if(!client) return [];
+  var needWords = dupeWords(need);
+  ref = (ref||"").trim().toLowerCase();
+  return state.items.filter(function(it){
+    if(it.client !== client || !isOpen(it)) return false;
+    if(ref && it.ref && it.ref.toLowerCase().indexOf(ref) !== -1) return true;
+    if(needWords.length < 3) return false;
+    var otherWords = dupeWords(it.need);
+    var shared = needWords.filter(function(w){ return otherWords.indexOf(w) !== -1; });
+    return shared.length >= 3 && shared.length >= Math.min(needWords.length, otherWords.length) * 0.4;
+  });
+}
+function renderDupeWarning(){
+  var el = byId("dupe-warning");
+  if(!el) return;
+  var client = pickVal("f-client-in","f-client-other");
+  var need = val("f-need");
+  var ref = val("f-ref");
+  var dupes = findDuplicates(client, need, ref);
+  if(!dupes.length){ el.innerHTML = ""; return; }
+  el.innerHTML = '<div class="dupewarn">' +
+    '<div class="dw-head"><b>' + dupes.length + ' similar open request' + (dupes.length===1?"":"s") + '</b> already on the board for ' + esc(client) + ' - worth checking before sending another:</div>' +
+    '<div class="dw-list">' +
+    dupes.slice(0,3).map(function(d){
+      var snippet = d.need.length > 90 ? d.need.slice(0,90) + "…" : d.need;
+      return '<button type="button" class="dw-item" data-act="view-dupe" data-id="' + esc(d.id) + '"><b>#' + d.num + '</b>' + esc(snippet) + '</button>';
+    }).join("") +
+    '</div></div>';
+}
+
 function setSaving(on){
   var el = byId("saving");
   if(el) el.setAttribute("data-on", on ? "1" : "0");
@@ -591,6 +645,7 @@ function renderAll(){
     var selCount = visSel.filter(function(i){ return selected[i.id]; }).length;
     sa.indeterminate = selCount>0 && selCount<visSel.length;
   }
+  if(byId("rs-form")) renderDupeWarning();
   if(focusId){
     var again = byId(focusId);
     if(again && again.focus){
@@ -903,7 +958,8 @@ function formHTML(){
         '<p class="err" id="e-client">Pick the client this is for.</p></div>' +
       '<div class="f-full"><label class="lab" for="f-need">What you need <span>or what you\'re waiting on</span></label>' +
         '<textarea class="inp" id="f-need" rows="4" placeholder="Be specific: what is stuck, which orders or SKUs, what you already tried">' + esc(d.need||"") + '</textarea>' +
-        '<p class="err" id="e-need">Describe what you need from Glen.</p></div>' +
+        '<p class="err" id="e-need">Describe what you need from Glen.</p>' +
+        '<div id="dupe-warning"></div></div>' +
       '<div class="f-full"><label class="lab">Priority</label>' +
         '<div class="prios">' + PRIOS.map(function(p){
           return '<label class="prio" data-k="' + p.k + '" data-on="' + (prio===p.k?1:0) + '">' +
@@ -983,6 +1039,15 @@ function onClick(e){
   if(act === "clearfilters"){ prefs.q = ""; prefs.client = ""; prefs.prio = ""; prefs.assignee = ""; prefs.view = "open"; savePrefs(); renderAll(); return; }
   if(act === "csv"){ exportCsv(); return; }
   if(act === "cancel-form"){ prefs.draft = {}; savePrefs(); prefs.tab = "queue"; renderAll(); return; }
+  if(act === "view-dupe"){
+    prefs.tab = "queue"; savePrefs();
+    expanded = {}; expanded[id] = true;
+    renderAll();
+    window.scrollTo(0,0);
+    var row = document.querySelector('.row[data-id="' + id + '"]');
+    if(row) row.scrollIntoView({behavior:"smooth", block:"center"});
+    return;
+  }
   if(act === "note-open"){ noteOpen[id] = true; renderAll(); var t = byId("note-"+id); if(t) t.focus(); return; }
   if(act === "note-cancel"){ delete noteOpen[id]; renderAll(); return; }
   if(act === "note-save"){ saveNote(id); return; }
@@ -1056,6 +1121,7 @@ function onChange(e){
     var eb = byId(eid); if(eb) eb.setAttribute("data-on","0");
     el.setAttribute("aria-invalid","false");
     saveDraft();
+    if(el.id === "f-client-in") renderDupeWarning();
     return;
   }
   if(el.id === "whoami-other"){
@@ -1097,6 +1163,7 @@ function onInput(e){
       if(err) err.setAttribute("data-on","0");
       el.setAttribute("aria-invalid","false");
     }
+    if(el.id === "f-need" || el.id === "f-client-other" || el.id === "f-ref") renderDupeWarning();
   }
 }
 function saveDraft(){

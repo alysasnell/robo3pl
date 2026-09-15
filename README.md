@@ -11,6 +11,10 @@ scattered DMs. Submissions land in one queue, sorted worst-first.
 - Pick your name and the client from dropdowns, say what you need, set a priority
 - Optional order/ref # and a "needed by" date
 - Drafts are kept in your browser, so a half-typed request survives a refresh
+- While typing, a warning appears if it looks like a duplicate of an existing open request
+  for the same client (shared order/ref #, or a chunk of matching wording) — click it to
+  jump straight to that request instead of filing a new one. It never blocks sending; it's
+  just a nudge.
 
 **For Glen — "Queue" tab**
 - Default sort is priority (Critical → Low), oldest first inside each level
