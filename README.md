@@ -26,7 +26,8 @@ scattered DMs. Submissions land in one queue, sorted worst-first.
   mark it resolved, or delete it
 - The checkmark next to any open row's status resolves it right there, no need to open it
 - The link icon next to a request's number copies a direct link to it (`#req-...`) — paste
-  it into Slack and it jumps straight to that row, expanded, when opened
+  it into Slack and opening it narrows the queue down to just that one request (already
+  expanded), with a banner and a "Show all requests" button to get back to the full list
 - Check off multiple rows (or use the header checkbox to grab everything in view) to
   bulk-resolve, reopen, reprioritize, reassign, or delete them in one save
 - Copy the current view as CSV to the clipboard

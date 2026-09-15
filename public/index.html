@@ -401,6 +401,7 @@ var noteOpen = {};
 var confirmDel = null;
 var selected = {};
 var bulkConfirmDel = false;
+var focusId = null;
 
 function loadPrefs(){
   try{ return JSON.parse(localStorage.getItem("rs-board-prefs")||"{}") || {}; }catch(e){ return {}; }
@@ -602,6 +603,7 @@ function cmpFor(key){
   }
 }
 function visibleItems(){
+  if(focusId) return allItems().filter(function(it){ return it.id === focusId; });
   var q = (prefs.q||"").trim().toLowerCase();
   var list = allItems().filter(function(it){
     if(prefs.view === "open" && !isOpen(it)) return false;
@@ -737,6 +739,10 @@ function bannerHTML(){
   if(previewOn){
     out += '<div class="wrap"><div class="banner"><b>Just an example.</b>&nbsp;These rows aren\'t real requests and nothing here is saved.' +
       '<span class="spacer"></span><button class="btn ghost sm" data-act="exit-preview">Back to your requests</button></div></div>';
+  }
+  if(focusId){
+    out += '<div class="wrap"><div class="banner"><b>Viewing a shared request.</b>&nbsp;Only this one is shown.' +
+      '<span class="spacer"></span><button class="btn ghost sm" data-act="exit-focus">Show all requests</button></div></div>';
   }
   return out;
 }
@@ -1046,12 +1052,19 @@ function onClick(e){
   }
   if(act === "preview"){ previewOn = true; renderAll(); return; }
   if(act === "exit-preview"){ previewOn = false; renderAll(); return; }
+  if(act === "exit-focus"){
+    focusId = null;
+    try{ history.replaceState(null, "", location.pathname + location.search); }catch(err){}
+    renderAll();
+    return;
+  }
   if(act === "reload"){ location.reload(); return; }
   if(act === "clearfilters"){ prefs.q = ""; prefs.client = ""; prefs.prio = ""; prefs.assignee = ""; prefs.view = "open"; savePrefs(); renderAll(); return; }
   if(act === "csv"){ exportCsv(); return; }
-  if(act === "cancel-form"){ prefs.draft = {}; savePrefs(); prefs.tab = "queue"; renderAll(); return; }
+  if(act === "cancel-form"){ prefs.draft = {}; savePrefs(); prefs.tab = "queue"; focusId = null; renderAll(); return; }
   if(act === "view-dupe"){
     prefs.tab = "queue"; savePrefs();
+    focusId = null;
     expanded = {}; expanded[id] = true;
     renderAll();
     window.scrollTo(0,0);
@@ -1381,13 +1394,10 @@ function openFromHash(){
   var it = find(m[1]);
   if(!it) return;
   prefs.tab = "queue"; savePrefs();
+  focusId = it.id;
   expanded = {}; expanded[it.id] = true;
   renderAll();
-  var id = it.id;
-  setTimeout(function(){
-    var row = document.querySelector('.row[data-id="' + id + '"]');
-    if(row) row.scrollIntoView({behavior:"smooth", block:"center"});
-  }, 50);
+  window.scrollTo(0,0);
 }
 
 /* ---------------- go ---------------- */
