@@ -24,6 +24,9 @@ scattered DMs. Submissions land in one queue, sorted worst-first.
 - Counters up top: open requests, critical waiting, longest wait in days, resolved this week
 - Open a row to read the full request, post a note back, change status or priority,
   mark it resolved, or delete it
+- The checkmark next to any open row's status resolves it right there, no need to open it
+- The link icon next to a request's number copies a direct link to it (`#req-...`) — paste
+  it into Slack and it jumps straight to that row, expanded, when opened
 - Check off multiple rows (or use the header checkbox to grab everything in view) to
   bulk-resolve, reopen, reprioritize, reassign, or delete them in one save
 - Copy the current view as CSV to the clipboard
