@@ -21,9 +21,11 @@ scattered DMs. Submissions land in one queue, sorted worst-first.
 - He can re-sort by any column: request #, priority, client, who asked, days waiting,
   needed by, or status — click a header again to reverse it
 - Filter by open/resolved/all, by client, by priority, by assignee, or search across everything
-- "My requests" (needs your name picked in "You are" first) splits the queue into what's
-  assigned to you and what you submitted, as two labeled sections — a request assigned to
-  and submitted by the same person only shows once, under "Assigned to you"
+- "My requests" splits the queue into what's assigned to you and what you submitted, as two
+  labeled sections — a request assigned to and submitted by the same person only shows once,
+  under "Assigned to you". It needs your name picked in "You are" first; clicking it without
+  one focuses that picker with a toast explaining why, and picking a name turns the filter on
+  right away instead of needing a second click
 - Counters up top: open requests, critical waiting, longest wait in days, resolved this week
 - Open a row to read the full request, post a note back, change status or priority,
   mark it resolved, or delete it
