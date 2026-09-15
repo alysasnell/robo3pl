@@ -113,7 +113,7 @@ select{cursor:pointer}
 /* ---------- board ---------- */
 .board{background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);overflow:hidden;margin-bottom:26px}
 .scroller{overflow-x:auto}
-.grid{display:grid;grid-template-columns:4px 54px 104px minmax(240px,2.4fr) 118px 82px 104px 132px 34px;align-items:center;min-width:900px}
+.grid{display:grid;grid-template-columns:4px 76px 104px minmax(240px,2.4fr) 118px 82px 104px 132px 34px;align-items:center;min-width:920px}
 .head{border-bottom:1px solid var(--line);background:var(--surface-2)}
 .head .cell{padding:9px 10px}
 .head button{all:unset;cursor:pointer;font-family:var(--display);font-size:10.5px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);display:inline-flex;align-items:center;gap:4px}
@@ -134,6 +134,9 @@ select{cursor:pointer}
 .row[data-done="1"] .stripe{opacity:.4}
 .row[data-sample="1"]{background:repeating-linear-gradient(135deg,transparent,transparent 9px,var(--surface-2) 9px,var(--surface-2) 18px)}
 .num{font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+.rowcheck{width:15px;height:15px;margin:0;cursor:pointer;accent-color:var(--accent);flex:none}
+.rowcheck:disabled{opacity:.35;cursor:not-allowed}
+.head .c-num,.row .c-num{display:flex;align-items:center;gap:6px}
 .client{font-weight:600;font-size:14.5px;letter-spacing:-.005em}
 .need{color:var(--ink-2);font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .who-cell{font-size:13px;color:var(--ink-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -218,6 +221,10 @@ label.lab span{color:var(--ink-3);text-transform:none;letter-spacing:0;font-fami
 .banner .spacer{flex:1;min-width:8px}
 .banner .btn{color:var(--high);border-color:var(--high-line)}
 .banner .btn:hover{background:var(--surface)}
+.bulkbar{display:flex;gap:9px;align-items:center;flex-wrap:wrap;background:var(--accent-soft);border:1px solid var(--accent-soft);border-radius:8px;padding:9px 13px;margin:14px 0 0}
+.bulkbar .bulkcount{font-size:13px;color:var(--accent-2);font-weight:600}
+.bulkbar .bulkcount b{font-family:var(--mono)}
+.bulkbar .spacer{flex:1;min-width:8px}
 .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(8px);background:var(--ink);color:var(--ground);padding:10px 16px;border-radius:8px;font-size:13.5px;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:opacity .18s ease,transform .18s ease;z-index:60;max-width:min(520px,90vw);text-align:center}
 .toast[data-on="1"]{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast[data-kind="warn"]{background:var(--crit);color:#fff}
@@ -371,6 +378,8 @@ var expanded = {};
 var previewOn = false;
 var noteOpen = {};
 var confirmDel = null;
+var selected = {};
+var bulkConfirmDel = false;
 
 function loadPrefs(){
   try{ return JSON.parse(localStorage.getItem("rs-board-prefs")||"{}") || {}; }catch(e){ return {}; }
@@ -556,6 +565,12 @@ function renderAll(){
   if(focusId === "q" && document.activeElement.selectionStart != null) selStart = document.activeElement.selectionStart;
   app.innerHTML = shellHTML();
   bind();
+  var sa = byId("selectall");
+  if(sa){
+    var visSel = visibleItems().filter(function(i){ return !i.sample; });
+    var selCount = visSel.filter(function(i){ return selected[i.id]; }).length;
+    sa.indeterminate = selCount>0 && selCount<visSel.length;
+  }
   if(focusId){
     var again = byId(focusId);
     if(again && again.focus){
@@ -606,7 +621,7 @@ function header(){
 
 /* ---------------- render: queue ---------------- */
 function queueHTML(){
-  return statsHTML() + bannerHTML() + controlsHTML() +
+  return statsHTML() + bannerHTML() + controlsHTML() + bulkBarHTML() +
     '<div class="board"><div class="scroller">' + headHTML() + listHTML() + '</div></div>';
 }
 function statsHTML(){
@@ -639,6 +654,25 @@ function bannerHTML(){
       '<span class="spacer"></span><button class="btn ghost sm" data-act="exit-preview">Back to your requests</button></div></div>';
   }
   return out;
+}
+function bulkBarHTML(){
+  var ids = Object.keys(selected);
+  var n = ids.length;
+  if(!n) return "";
+  var prioOpts = '<option value="">Set priority...</option>' + PRIOS.map(function(p){ return '<option value="' + p.k + '">' + p.n + '</option>'; }).join("");
+  return '<div class="wrap"><div class="bulkbar">' +
+    '<span class="bulkcount"><b>' + n + '</b> selected</span>' +
+    '<button class="btn sm" data-act="bulk-resolve">Mark resolved</button>' +
+    '<button class="btn sm" data-act="bulk-reopen">Reopen</button>' +
+    '<select class="inp" id="bulk-prio" aria-label="Set priority for selected requests">' + prioOpts + '</select>' +
+    '<span class="spacer"></span>' +
+    (bulkConfirmDel
+      ? '<span class="delconfirm">Delete ' + n + ' request' + (n===1?"":"s") + '?</span>' +
+        '<button class="btn sm danger" data-act="bulk-del-yes">Yes, delete</button>' +
+        '<button class="btn ghost sm" data-act="bulk-del-no">Keep them</button>'
+      : '<button class="btn ghost sm danger" data-act="bulk-del">Delete</button>') +
+    '<button class="btn ghost sm" data-act="bulk-clear">Clear</button>' +
+  '</div></div>';
 }
 function controlsHTML(){
   var cs = clients();
@@ -678,9 +712,16 @@ function headHTML(){
     return '<div class="cell ' + cls + '"><button data-act="sort" data-sort="' + key + '" data-active="' + (on?1:0) + '"' +
       ' aria-label="Sort by ' + label + '">' + label + arrow + '</button></div>';
   }
+  var vis = visibleItems().filter(function(i){ return !i.sample; });
+  var allSel = vis.length>0 && vis.every(function(i){ return selected[i.id]; });
+  var numCell = '<div class="cell c-num">' +
+    '<input type="checkbox" class="rowcheck" id="selectall" data-act="selectall"' + (allSel?" checked":"") + ' aria-label="Select all visible requests">' +
+    '<button data-act="sort" data-sort="num" data-active="' + (prefs.sort==="num"?1:0) + '" aria-label="Sort by request number">#' +
+    (prefs.sort==="num" ? '<span class="arrow">' + (prefs.dir==="rev"?"▲":"▼") + '</span>' : '') +
+    '</button></div>';
   return '<div class="grid head" role="row">' +
     '<div class="cell"></div>' +
-    h("num","#","c-num") +
+    numCell +
     h("priority","Priority","c-prio") +
     h("client","Client &amp; request","c-main") +
     h("requester","From","c-who") +
@@ -719,7 +760,9 @@ function rowHTML(it){
   var row = '<div class="grid row" role="row" tabindex="0" data-act="expand" data-id="' + esc(it.id) + '" data-p="' + esc(it.priority) + '"' +
       ' data-done="' + (isOpen(it) ? 0 : 1) + '" data-sample="' + (it.sample?1:0) + '" aria-expanded="' + open + '">' +
     '<div class="stripe"></div>' +
-    '<div class="cell c-num"><span class="num">' + (it.sample ? "-" : "#" + it.num) + '</span>' +
+    '<div class="cell c-num">' +
+      (it.sample ? '' : '<input type="checkbox" class="rowcheck" data-act="select" data-id="' + esc(it.id) + '"' + (selected[it.id] ? ' checked' : '') + ' aria-label="Select request #' + it.num + '">') +
+      '<span class="num">' + (it.sample ? "-" : "#" + it.num) + '</span>' +
       (it.sample ? '<span class="tag">Example</span>' : "") + '</div>' +
     '<div class="cell c-prio"><span class="pill p-' + esc(it.priority) + '">' + prioName(it.priority) + '</span></div>' +
     '<div class="cell c-main"><div class="client">' + esc(it.client) +
@@ -916,11 +959,26 @@ function onClick(e){
   if(act === "del-no"){ confirmDel = null; renderAll(); return; }
   if(act === "del-yes"){
     confirmDel = null;
+    delete selected[id];
     commit(function(s){
       s.items = s.items.filter(function(x){ return x.id !== id; });
     }, "Request deleted.");
     return;
   }
+  if(act === "select"){ toggleSelect(id); return; }
+  if(act === "selectall"){
+    var vis = visibleItems().filter(function(i){ return !i.sample; });
+    var allSel = vis.length>0 && vis.every(function(i){ return selected[i.id]; });
+    vis.forEach(function(i){ if(allSel) delete selected[i.id]; else selected[i.id] = true; });
+    renderAll();
+    return;
+  }
+  if(act === "bulk-resolve"){ bulkSetStatus("done"); return; }
+  if(act === "bulk-reopen"){ bulkSetStatus("active"); return; }
+  if(act === "bulk-del"){ bulkConfirmDel = true; renderAll(); return; }
+  if(act === "bulk-del-no"){ bulkConfirmDel = false; renderAll(); return; }
+  if(act === "bulk-del-yes"){ bulkDelete(); return; }
+  if(act === "bulk-clear"){ selected = {}; bulkConfirmDel = false; renderAll(); return; }
 }
 function onChange(e){
   var el = e.target;
@@ -935,6 +993,10 @@ function onChange(e){
       var it = findIn(s, id);
       if(it){ it.priority = v; it.updatedAt = new Date().toISOString(); }
     }, "Priority updated.");
+    return;
+  }
+  if(el.id === "bulk-prio"){
+    if(el.value) bulkSetPriority(el.value);
     return;
   }
   if(el.id === "f-name" || el.id === "f-client-in"){
@@ -1024,6 +1086,41 @@ function whoAmI(){
   var sel = byId("whoami");
   if(sel && sel.focus) sel.focus();
   return null;
+}
+function toggleSelect(id){
+  if(selected[id]) delete selected[id]; else selected[id] = true;
+  renderAll();
+}
+function bulkSetStatus(next){
+  var ids = Object.keys(selected);
+  if(!ids.length) return;
+  selected = {};
+  bulkConfirmDel = false;
+  commit(function(s){
+    ids.forEach(function(id){
+      var it = findIn(s, id);
+      if(it){ it.status = next; it.updatedAt = new Date().toISOString(); }
+    });
+  }, ids.length + " request" + (ids.length===1?"":"s") + (next==="done" ? " marked resolved." : " reopened."));
+}
+function bulkSetPriority(v){
+  var ids = Object.keys(selected);
+  if(!ids.length) return;
+  commit(function(s){
+    ids.forEach(function(id){
+      var it = findIn(s, id);
+      if(it){ it.priority = v; it.updatedAt = new Date().toISOString(); }
+    });
+  }, "Priority updated for " + ids.length + " request" + (ids.length===1?"":"s") + ".");
+}
+function bulkDelete(){
+  var ids = Object.keys(selected);
+  if(!ids.length) return;
+  selected = {};
+  bulkConfirmDel = false;
+  commit(function(s){
+    s.items = s.items.filter(function(x){ return ids.indexOf(x.id) === -1; });
+  }, ids.length + " request" + (ids.length===1?"":"s") + " deleted.");
 }
 function setStatus(id, next){
   var it = find(id);
