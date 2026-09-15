@@ -410,6 +410,7 @@ var confirmDel = null;
 var selected = {};
 var bulkConfirmDel = false;
 var focusId = null;
+var minePending = false;
 
 function loadPrefs(){
   try{ return JSON.parse(localStorage.getItem("rs-board-prefs")||"{}") || {}; }catch(e){ return {}; }
@@ -1073,7 +1074,13 @@ function onClick(e){
   if(act === "tab"){ prefs.tab = el.getAttribute("data-tab"); savePrefs(); renderAll(); window.scrollTo(0,0); return; }
   if(act === "view"){ prefs.view = el.getAttribute("data-view"); savePrefs(); renderAll(); return; }
   if(act === "toggle-mine"){
-    if(!prefs.mine && !whoAmI()) return;
+    if(!prefs.mine){
+      if(!whoAmI()){
+        minePending = true;
+        toast("Pick your name up top and \"My requests\" will turn on for you.");
+        return;
+      }
+    }
     prefs.mine = !prefs.mine;
     savePrefs();
     renderAll();
@@ -1188,7 +1195,11 @@ function onChange(e){
   }
   if(el.id === "whoami-other"){
     var nv = el.value.trim().slice(0,40);
-    if(nv){ prefs.name = nv; savePrefs(); }
+    if(nv){
+      prefs.name = nv;
+      if(minePending){ minePending = false; prefs.mine = true; }
+      savePrefs();
+    }
     renderAll();
     return;
   }
@@ -1199,6 +1210,7 @@ function onChange(e){
       return;
     }
     prefs.name = el.value;
+    if(minePending){ minePending = false; prefs.mine = true; }
     savePrefs();
     renderAll();
     return;
